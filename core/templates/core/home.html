@@ -1,9 +1,18 @@
 <!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
 {% extends 'core/base.html' %}
 
+<!-- IMAGEN DE LA CABECERA -->
+{% block background %}{% load static %}{% static 'core/assets/img/home-bg.jpg' %}{% endblock %}
+
+<!-- CONTENIDO DE LA CABECERA -->
+{% block cabecera %}
+<div class="site-heading">
+    <h1>Portada</h1>
+    <span class="subheading">Un blog hecho con Python/Django</span>
+</div>
+{% endblock %}
 
 <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
-{% block content%}
-    <h2>Portada</h2>
+{% block content %}
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi aliquam quasi possimus optio aperiam tempore. Similique, blanditiis vitae earum ut accusantium fugit, veniam quaerat impedit explicabo, corporis unde rem perspiciatis.</p>
 {% endblock %}

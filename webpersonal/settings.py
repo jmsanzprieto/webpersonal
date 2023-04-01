@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    # Si queremos usar la configuración extendida de apps.py, hemos de modificar blog y cambiarlo por blog.apps.BlogConfig
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +119,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Localización de ficheros multimedia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
