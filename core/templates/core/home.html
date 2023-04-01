@@ -1,9 +1,9 @@
-<h1>Web personal</h1>
-<ul>
-    <li><a href="/">Inicio</a></li>
-    <li><a href="/about">Sobre mi</a></li>
-    <li><a href="/contacto">Contacto</a></li>
-    
-</ul>
-<h2>Portada</h2>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi aliquam quasi possimus optio aperiam tempore. Similique, blanditiis vitae earum ut accusantium fugit, veniam quaerat impedit explicabo, corporis unde rem perspiciatis.</p>
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+
+
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content%}
+    <h2>Portada</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi aliquam quasi possimus optio aperiam tempore. Similique, blanditiis vitae earum ut accusantium fugit, veniam quaerat impedit explicabo, corporis unde rem perspiciatis.</p>
+{% endblock %}
