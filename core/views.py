@@ -11,9 +11,8 @@ def home(request):
 
 # Vista pagina about
 def about(request):
-    return HttpResponse("<h2>Sobre mi</h2>")
+    return render(request, "core/about.html")
 
 # Vista pagina contacto
 def contacto(request):
-    return HttpResponse("<h2>contacto</h2>")
-
+  return render(request, "core/contacto.html")
