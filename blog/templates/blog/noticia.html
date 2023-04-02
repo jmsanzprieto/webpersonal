@@ -1,0 +1,38 @@
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+
+<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
+{% for noticias in noticias %}
+<!-- IMAGEN DE LA CABECERA -->
+{% block background %}{% load static %}{{ noticia.imagen.url }}{% endblock %}
+
+
+<!-- CONTENIDO DE LA CABECERA -->
+{% block cabecera %}
+<div class="site-heading">
+    <h2>{{noticia.titulo}}</h2>
+    <span class="subheading">{{noticia.subtitulo}}</span>
+</div>
+{% endblock %}
+
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content %}
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+               <p>{{noticia.contenido|linebreaks}}</p>
+                <p>
+                    Placeholder text by
+                    <a href="http://spaceipsum.com/">Space Ipsum</a>
+                    &middot; Images by
+                    <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
+{% endfor %}
+<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
+

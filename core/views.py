@@ -5,9 +5,7 @@ from django.shortcuts import render, HttpResponse
 # Create your views here.
 
 
-# Vista página principal
-def home(request):
-    return render(request, "core/home.html")
+
 
 # Vista pagina about
 def about(request):

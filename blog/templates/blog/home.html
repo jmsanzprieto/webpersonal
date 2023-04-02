@@ -1,0 +1,35 @@
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+
+<!-- IMAGEN DE LA CABECERA -->
+{% block background %}{% load static %}{% static 'core/assets/img/home-bg.jpg' %}{% endblock %}
+
+<!-- CONTENIDO DE LA CABECERA -->
+{% block cabecera %}
+<div class="site-heading">
+    <h1>Portada</h1>
+    <span class="subheading">Un blog hecho con Python/Django</span>
+</div>
+{% endblock %}
+
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content %}
+<!-- CARGAMOS LAS NOTICIAS -->
+   {% for noticias in noticias %}
+    <!-- Post preview-->
+    <div class="post-preview">
+        <a href="{% url 'noticia' noticia_id=noticias.id %}">
+            <h2 class="post-title">{{noticias.titulo}}</h2>
+            <h3 class="post-subtitle">{{noticias.subtitulo}}</h3>
+        </a>
+        <p class="post-meta">
+            Creado el
+            <a href="#!"></a>
+           {{noticias.fecha_creacion|date:"SHORT_DATE_FORMAT"}}
+        </p>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+   {% endfor %}
+<!-- CARGAMOS LAS NOTICIAS -->
+{% endblock %}
