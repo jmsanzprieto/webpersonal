@@ -1,10 +1,7 @@
 from django.shortcuts import render, HttpResponse
 
-# Importamos los metodos que sean necesarios
-
+# Importamos el modelo para acceder a la bd
 # Create your views here.
-
-
 
 
 # Vista pagina about

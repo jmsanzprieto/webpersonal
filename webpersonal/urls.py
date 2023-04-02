@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from core import views as core_views
 from blog import views as blog_views
+from paginas import views as paginas_views
 
 # Para poder ver todas las opciones en desarrollo, debemos hacer algunas importaciones
 from django.conf import settings
@@ -27,6 +28,9 @@ urlpatterns = [
     # Mostramos una noticia concreta
     path('noticia/<int:noticia_id>/', blog_views.noticia, name='noticia'),
     # Mostramos una noticia concreta
+     # Mostramos una pagina concreta
+    path('pagina/<int:pagina_id>/', paginas_views.pagina, name='pagina'),
+    # Mostramos una pagina concreta
     path('about',core_views.about, name="about"),
     #path('contacto',core_views.contacto, name="contacto"),
     path('contacto', include('contacto.urls')),

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Si queremos usar la configuración extendida de apps.py, hemos de modificar blog y cambiarlo por blog.apps.BlogConfig
     'blog.apps.BlogConfig',
     'contacto',
+    'paginas',
 ]
 
 MIDDLEWARE = [

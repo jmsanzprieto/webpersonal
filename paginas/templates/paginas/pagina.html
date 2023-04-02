@@ -1,0 +1,32 @@
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+
+<!-- CARGAMOS LOS DATOS DE LA PAGINA CONCRETA -->
+{% for pagina in paginas %}
+<!-- IMAGEN DE LA CABECERA -->
+{% block background %}{% load static %}{{ pagina.imagen.url }}{% endblock %}
+
+
+<!-- CONTENIDO DE LA CABECERA -->
+{% block cabecera %}
+<div class="site-heading">
+    <h2>{{pagina.titulo}}</h2>
+    <span class="subheading">{{pagina.subtitulo}}</span>
+</div>
+{% endblock %}
+
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content %}
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+               <p>{{pagina.contenido|linebreaks}}</p>
+
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}
+{% endfor %}
+<!-- CARGAMOS LOS DATOS DE LA pagina CONCRETA -->
