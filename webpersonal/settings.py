@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     # Si queremos usar la configuración extendida de apps.py, hemos de modificar blog y cambiarlo por blog.apps.BlogConfig
     'blog.apps.BlogConfig',
+    'contacto',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Ajustes para el envio de correos
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'ad515945827737'
+EMAIL_HOST_PASSWORD = '0bf60f8958153b'
+EMAIL_PORT = '2525'

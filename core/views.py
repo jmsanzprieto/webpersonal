@@ -10,7 +10,3 @@ from django.shortcuts import render, HttpResponse
 # Vista pagina about
 def about(request):
     return render(request, "core/about.html")
-
-# Vista pagina contacto
-def contacto(request):
-  return render(request, "core/contacto.html")
