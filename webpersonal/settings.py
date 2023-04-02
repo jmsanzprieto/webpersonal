@@ -120,7 +120,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
 
 # Localización de ficheros multimedia
 MEDIA_URL = '/media/'
@@ -132,8 +134,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Ajustes para el envio de correos
-EMAIL_HOST = 'XXXXXXXXXXXXXXX'
-EMAIL_HOST_USER = 'XXXXXXXXXXXXXXX'
-EMAIL_HOST_PASSWORD = 'XXXXXXXXXXXXXXX'
-EMAIL_PORT = 'XXXXXXXXXXXXXXX'
+# Ajustes para el envio de correos, modificar lo que corresponda
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'ad515945827737'
+EMAIL_HOST_PASSWORD = '0bf60f8958153b'
+EMAIL_PORT = '2525'
