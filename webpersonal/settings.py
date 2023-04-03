@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     # Si queremos usar la configuración extendida de apps.py, hemos de modificar blog y cambiarlo por blog.apps.BlogConfig
     'blog.apps.BlogConfig',
     'contacto',
-    'paginas',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.views.paginas_context',
             ],
         },
     },
