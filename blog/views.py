@@ -1,8 +1,14 @@
-from django.shortcuts import get_object_or_404,render
+from django.shortcuts import get_object_or_404,render,redirect
 from django.views.generic.detail import DetailView
+#from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Importamos el modelo para acceder a la bd
-from .models import Blog
+from .models import Blog,Comentario
+
+
+# Importamos el formulario que hemos creado
+from .forms import FormComentario
 
 # Create your views here.
 
@@ -20,10 +26,30 @@ class noticia(DetailView):
     context_object_name = 'noticia'
     slug_field = 'slug'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_comentario'] = FormComentario()
+        return context
 
-# # Vista de una noticia concreta
-# def noticia(request, noticia_id):
-#     # Obtener la noticia especifica usando el ID pasado en la URL
-#     noticia = get_object_or_404(Blog, id=noticia_id)
-#     # Pasar la noticia al contexto de la plantilla usando la clave 'noticia'
-#     return render(request, 'blog/noticia.html', {'noticia': noticia})
+
+# Guardar comentarios
+def agregar_comentario(request):
+    if request.method == 'POST':
+        # Crear una instancia de Comentario
+        comentario = Comentario()
+
+        # Asignar los valores ingresados en el formulario a los campos correspondientes del modelo Comentario
+        comentario.nombre = request.POST.get('nombre')
+        comentario.email = request.POST.get('email')
+        comentario.contenido = request.POST.get('mensaje')
+        nombre_pagina = request.POST.get('pagina')
+
+        # Guardar el comentario en la base de datos
+        try:
+            comentario.save()
+            return redirect('/blog/'+nombre_pagina+"?OK")
+        except:
+            return redirect('/blog/'+nombre_pagina+"?KO")
+            
+
+

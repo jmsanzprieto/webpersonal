@@ -24,10 +24,14 @@ class Blog(models.Model):
         verbose_name = "noticia"
         verbose_name_plural = "noticias"
         ordering = ["-fecha_creacion"] # Ordena por defecto de mas antiguo a mas nuevo, con (-NombreCampo), cambia a la inversa
-
-    # De esta forma, podemos visualizar el nombre de las noticias correctamente en el admin
+    
     def __str__(self):
-        return self.titulo
+        num_comentarios = self.comentarios.count()
+        return f'{self.titulo} ({self.fecha_creacion}) - {num_comentarios} comentarios'
+
+
+
+
     
 
 # Gestion de comentarios
@@ -42,6 +46,6 @@ class Comentario(models.Model):
     class Meta:
         ordering = ["fecha_creacion"]
         
-    def __str__(self):
-        return f'Comentario de {self.nombre} en {self.blog.titulo}'
-     
+def __str__(self):
+    blog_titulos = ', '.join([blog.titulo for blog in self.comentarios.all()])
+    return f'Comentario de {self.nombre} en {blog_titulos}'

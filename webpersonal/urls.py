@@ -19,6 +19,8 @@ from core import views as core_views
 from blog import views as blog_views
 from core.views import pagina
 from blog.views import noticia
+from blog.views import agregar_comentario
+
 
 
 # Para poder ver todas las opciones en desarrollo, debemos hacer algunas importaciones
@@ -31,13 +33,17 @@ urlpatterns = [
     # Mostramos una noticia concreta
     path('blog/<slug:slug>/', noticia.as_view(), name='noticia'),
     # Mostramos una noticia concreta
+   
      # Mostramos una pagina concreta
-    path('<slug:slug>/', pagina.as_view(), name='pagina-detalle'),
+    path('pagina/<slug:slug>/', pagina.as_view(), name='pagina-detalle'),
     # Mostramos una pagina concreta
     path('about',core_views.about, name="about"),
     #path('contacto',core_views.contacto, name="contacto"),
     path('contacto', include('contacto.urls')),
     path('admin/', admin.site.urls),
+
+    # otras URLs existentes...
+    path('procesar-comentario/', blog_views.agregar_comentario, name='procesar_comentario'),
 ]
 
 

@@ -17,20 +17,53 @@
 
 <!-- CARGAMOS LAS NOTICIAS -->
    {% for noticias in noticias %}
-    <!-- Post preview-->
-    <div class="post-preview">
-        <a href="/blog/{{noticias.slug}}">
-            <h2 class="post-title">{{noticias.titulo}}</h2>
-            <h3 class="post-subtitle">{{noticias.subtitulo}}</h3>
-        </a>
-        <p class="post-meta">
-            Creado el
-            <a href="#!"></a>
-           {{noticias.fecha_creacion|date:"SHORT_DATE_FORMAT"}}
-        </p>
-    </div>
-    <!-- Divider-->
-    <hr class="my-4" />
+                       <!-- Blog Article Start-->
+                       <article>
+                        <!-- Blog item Start -->
+                        <div class="blog-item-wrap">
+                            <!-- Post Format icon Start -->
+                            <div class="post-format">
+                                <span><i class="fa fa-camera"></i></span>
+                            </div><!-- Post Format icon End -->
+                            <h2 class="blog-title"><a href="/blog/{{noticias.slug}}">{{noticias.titulo}}</a></h2><!-- Entry Meta Start-->
+                            <div class="entry-meta">
+                                <span class="meta-part"><i class=
+                                "ico-user"></i> <a href="#">James
+                                Maclern</a></span> <span class=
+                                "meta-part"><i class=
+                                "ico-calendar-alt-fill"></i> <a href=
+                                "#"> {{noticias.fecha_creacion|date:"SHORT_DATE_FORMAT"}}</a></span> <span class=
+                                "meta-part"><i class="ico-comments"></i>
+                                <a href="#">20</a></span> <span class=
+                                "meta-part"><i class="ico-tag"></i> <a href=
+                                "#">Tech</a></span> <span class=
+                                "meta-part"><i class="ico-star"></i> <a href=
+                                "#">7.5</a></span>
+                            </div><!-- Entry Meta End-->
+                            <!-- Feature inner Start -->
+                            <div class="feature-inner">
+                                <a data-lightbox="roadtrip" href=
+                                "img/blog/blog-01.jpg"><img alt="" src=
+                                "img/blog/blog-01.jpg"></a>
+                            </div><!-- Feature inner End -->
+                            <!-- Post Content Start -->
+                            <div class="post-content">
+                                <p>
+                                    {{ noticias.contenido|slice:":250" }}
+                                </p>
+                            </div><!-- Post Content End -->
+                            <div class="entry-more">
+                                <div class="pull-left">
+                                    <a class="btn btn-common" href=
+                                    "/blog/{{noticias.slug}}">Read More <i class=
+                                    "ico-arrow-right"></i></a>
+                                </div>
+                                <div class="share-icon pull-right">
+                                    <span class="socialShare"></span>
+                                </div>
+                            </div>
+                        </div><!-- Blog item End -->
+                    </article><!-- Blog Article End-->
    {% endfor %}
 <!-- CARGAMOS LAS NOTICIAS -->
 {% endblock %}

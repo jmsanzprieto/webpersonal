@@ -1,0 +1,89 @@
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+
+<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
+{% for noticias in noticias %}
+<!-- IMAGEN DE LA CABECERA -->
+{% block background %}{% load static %}{{ noticia.imagen.url }}{% endblock %}
+
+
+<!-- CONTENIDO DE LA CABECERA -->
+{% block cabecera %}
+<div class="site-heading">
+    <h2>{{noticia.titulo}}</h2>
+    <span class="subheading">{{noticia.subtitulo}}</span>
+</div>
+{% endblock %}
+
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content %}
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+               <p>{{noticia.contenido|linebreaks}}</p>
+                <p>
+                    Placeholder text by
+                    <a href="http://spaceipsum.com/">Space Ipsum</a>
+                    &middot; Images by
+                    <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- FORMULARIO PARA CARGAR COMENTARIO -->
+    {%  if 'OK' in request.GET %}
+        <div class="text-center mb-3">
+            <div class="fw-bolder"><span class="text-success">  El comentario se ha guardado correctamente</span></div>
+        </div>
+    {% endif %}
+    {%  if 'KO' in request.GET %}
+        <div class="text-center mb-3">
+            <div class="fw-bolder"><span class="text-danger">  Se ha producido un error guardando el comentario</span></div>
+        </div>
+    {% endif %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="comentario" style="border:1px solid #6c757d; padding: 10px; margin-bottom: 20px;">
+                <p> Nombre del autor</p>
+                <p>Contenido del comentario</p>
+            </div>
+            <h3>Deja aquí tu comentario</h3>
+            <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">
+                <input type="hidden" name="pagina" value="{{ noticia.slug }}">
+
+                {% csrf_token %}
+                <div class="form-floating">
+                    {{form_comentario.nombre}}
+                    <label for="name">{{ form_comentario.nombre.label_tag }}</label>
+                </div>
+                <div class="form-floating">
+                    {{form_comentario.email}}
+                    <label for="name">{{ form_comentario.email.label_tag }}</label>
+                </div>
+                <div class="form-floating">
+                    {{form_comentario.mensaje}}
+                    <label for="name">{{ form_comentario.mensaje.label_tag }}</label>
+                </div>
+                <br />
+                <!-- Submit Button-->
+                <input type="submit" class="btn btn-primary text-uppercase"  value="Enviar">
+            </form>
+            <p></p>
+        </div>
+    </div>
+</div>
+
+<!-- FORMULARIO PARA INTRODUCIR COMENTARIOS -->
+
+
+
+{% endblock %}
+{% endfor %}
+<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
+
+
+
