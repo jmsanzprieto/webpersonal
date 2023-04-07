@@ -70,7 +70,7 @@
                 <!-- Navigation Start -->
                 <div class="navbar-collapse collapse" id="navigation">
                     <ul class="nav navbar-nav navbar-right">
-						<li ><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home' %}">Home</a></li>
+						<li ><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home' %}">Inicio</a></li>
                        <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
                         {% for pagina in paginas %}
                             <li><a class="nav-link px-lg-3 py-3 py-lg-4" href="/pagina/{{pagina.slug}}/">{{ pagina.titulo }}</a></li>

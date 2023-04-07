@@ -2,7 +2,7 @@
 {% extends 'core/base.html' %}
 
 <!-- IMAGEN DE LA CABECERA -->
-{% block background %}{% load static %}{% static 'core/assets/img/home-bg.jpg' %}{% endblock %}
+{% block background %}{% load static %}{% static 'core/img/imagen_portada.png' %}{% endblock %}
 
 <!-- CONTENIDO DE LA CABECERA -->
 {% block cabecera %}
@@ -21,15 +21,10 @@
                        <article>
                         <!-- Blog item Start -->
                         <div class="blog-item-wrap">
-                            <!-- Post Format icon Start -->
-                            <div class="post-format">
-                                <span><i class="fa fa-camera"></i></span>
-                            </div><!-- Post Format icon End -->
                             <h2 class="blog-title"><a href="/blog/{{noticias.slug}}">{{noticias.titulo}}</a></h2><!-- Entry Meta Start-->
                             <div class="entry-meta">
                                 <span class="meta-part"><i class=
-                                "ico-user"></i> <a href="#">James
-                                Maclern</a></span> <span class=
+                                "ico-user"></i> <a href="#">{{noticias.autor}}</a></span> <span class=
                                 "meta-part"><i class=
                                 "ico-calendar-alt-fill"></i> <a href=
                                 "#"> {{noticias.fecha_creacion|date:"SHORT_DATE_FORMAT"}}</a></span> <span class=
@@ -42,9 +37,9 @@
                             </div><!-- Entry Meta End-->
                             <!-- Feature inner Start -->
                             <div class="feature-inner">
-                                <a data-lightbox="roadtrip" href=
-                                "img/blog/blog-01.jpg"><img alt="" src=
-                                "img/blog/blog-01.jpg"></a>
+                                <a href=
+                                "/blog/{{noticias.slug}}"><img alt="" src=
+                                "{{ noticias.imagen.url }}"></a>
                             </div><!-- Feature inner End -->
                             <!-- Post Content Start -->
                             <div class="post-content">

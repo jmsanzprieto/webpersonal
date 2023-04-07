@@ -3,6 +3,14 @@ from django.utils.text import slugify
 
 
 # Create your models here.
+# Control de los autores de las noticias
+class Autor(models.Model):
+    nombre = models.CharField(max_length=100)
+    biografia = models.TextField()
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.nombre
 
 # Creamos la clase con la definición de los campos
 class Blog(models.Model):
@@ -14,6 +22,7 @@ class Blog(models.Model):
     imagen = models.ImageField(upload_to='blog')
     fecha_creacion = models.DateTimeField(auto_now_add=True) # Se añade la hora de forma automática cuando se crea el registro
     fecha_actualizacion = models.DateTimeField(auto_now=True) # Se añade la hora de forma automática al actualizarse el campo
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE, related_name='blogs')
 
     # Algunas definiciones extra
     def save(self, *args, **kwargs):
@@ -30,10 +39,6 @@ class Blog(models.Model):
         return f'{self.titulo} ({self.fecha_creacion}) - {num_comentarios} comentarios'
 
 
-
-
-    
-
 # Gestion de comentarios
 class Comentario(models.Model):
     nombre = models.CharField(max_length=100)
@@ -49,3 +54,6 @@ class Comentario(models.Model):
 def __str__(self):
     blog_titulos = ', '.join([blog.titulo for blog in self.comentarios.all()])
     return f'Comentario de {self.nombre} en {blog_titulos}'
+
+
+
