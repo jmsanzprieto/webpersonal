@@ -29,6 +29,11 @@ class noticia(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form_comentario'] = FormComentario()
+    
+        # Obtener comentarios aprobados de la noticia
+        comentarios_aprobados = self.object.comentarios.filter(aprobado=True)
+        context['comentarios_aprobados'] = comentarios_aprobados
+
         return context
 
 
@@ -45,11 +50,18 @@ def agregar_comentario(request):
         nombre_pagina = request.POST.get('pagina')
 
         # Guardar el comentario en la base de datos
+        # Obtener el objeto Blog correspondiente
         try:
-            comentario.save()
-            return redirect('/blog/'+nombre_pagina+"?OK")
-        except:
+            blog = Blog.objects.get(slug=nombre_pagina)
+        except Blog.DoesNotExist:
             return redirect('/blog/'+nombre_pagina+"?KO")
+
+        # Agregar el objeto Blog al campo de ManyToManyField del modelo Comentario
+        comentario.save() # Guardar el comentario para obtener un ID
+        comentario.blog.add(blog) # Agregar el objeto Blog
+        comentario.save() # Guardar el comentario con la relación ManyToManyField actualizada
+
+        return redirect('/blog/'+nombre_pagina+"?OK")
             
 
 

@@ -1,92 +1,107 @@
-<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
-{% extends 'core/base.html' %}
-
-<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
-{% for noticias in noticias %}
-<!-- IMAGEN DE LA CABECERA -->
-{% block background %}{% load static %}{{ noticia.imagen.url }}{% endblock %}
-
-
-<!-- CONTENIDO DE LA CABECERA -->
-{% block cabecera %}
-<div class="site-heading">
-    <h2>{{noticia.titulo}}</h2>
-    <span class="subheading">{{noticia.subtitulo}}</span>
-</div>
-{% endblock %}
-
-<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
-{% block content %}
-<article class="single-post-content">
-    <!-- Blog item Start -->
-    <div class="blog-item-wrap">
-        <a href="#"><img alt="" src="{{ noticia.imagen.url }}"></a>
-    </div><!-- Blog item End --><br>
-    <p>
-        {{noticia.contenido|linebreaks}}
-    </p>
-    <!-- Feature inner Start -->
-    <div class="feature-inner single-space">
-        <a href="#"><img alt="" src="img/blog/blog-02.jpg"></a>
-    </div><!-- Feature inner End -->
-    <div class="links">
-        <a class="heart" href="#"><i class="ico-heart"></i>
-        (143)</a> <a class="twitter" href="#"><i class="ico-twitter-with-circle"></i> Tweet</a> <a class="facebook" href="#"><i class="ico-facebook-with-circle"></i> Share</a> <a class="google-plus" href="#"><i class=" ico-google-with-circle"></i> Google+</a>
-        <a class="linkedin" href="#"><i class="ico-linkedin-with-circle"></i> Linkedin</a>
-    </div>
-</article>
-
-<!-- FORMULARIO PARA CARGAR COMENTARIO -->
+    <!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+    {% extends 'core/base.html' %}
+    <!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
+    
+    {% for noticias in noticias %}
+    <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+    {% block content %}
     {%  if 'OK' in request.GET %}
-        <div class="text-center mb-3">
-            <div class="fw-bolder"><span class="text-success">  El comentario se ha guardado correctamente</span></div>
-        </div>
+    <div class="text-center mb-3">
+        <div class="fw-bolder alert alert-success"><span class="text-success">  El comentario se ha guardado correctamente</span></div>
+    </div>
     {% endif %}
     {%  if 'KO' in request.GET %}
         <div class="text-center mb-3">
-            <div class="fw-bolder"><span class="text-danger">  Se ha producido un error guardando el comentario</span></div>
+            <div class="fw-bolder alert alert-danger"><span class="text-danger">  Se ha producido un error guardando el comentario</span></div>
         </div>
     {% endif %}
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-            <div class="comentario" style="border:1px solid #6c757d; padding: 10px; margin-bottom: 20px;">
-                <p> Nombre del autor</p>
-                <p>Contenido del comentario</p>
-            </div>
-            <h3>Deja aquí tu comentario</h3>
-            <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">
-                <input type="hidden" name="pagina" value="{{ noticia.slug }}">
+    <div class="blog-single">
+    <div class=single-inner>
+    <div class=post-details>
+    <div class=main-content-head>
+    <div class=meta-information>
+    <h2 class=post-title>{{noticia.titulo}} </h2>
 
-                {% csrf_token %}
-                <div class="form-floating">
-                    {{form_comentario.nombre}}
-                    <label for="name">{{ form_comentario.nombre.label_tag }}</label>
-                </div>
-                <div class="form-floating">
-                    {{form_comentario.email}}
-                    <label for="name">{{ form_comentario.email.label_tag }}</label>
-                </div>
-                <div class="form-floating">
-                    {{form_comentario.mensaje}}
-                    <label for="name">{{ form_comentario.mensaje.label_tag }}</label>
-                </div>
-                <br />
-                <!-- Submit Button-->
-                <input type="submit" class="btn btn-primary text-uppercase"  value="Enviar">
-            </form>
-            <p></p>
-        </div>
+    <ul class=meta-info>
+    <li>
+    <a href="javascript:void(0)">Por {{noticia.autor}}</a>
+    </li>
+    <li>
+    <a href="javascript:void(0)">{{noticia.fecha_creacion}}</a>
+    </li>
+    <li>
+    <a href="javascript:void(0)">Marketing</a>
+    </li>
+    </ul>
+    
     </div>
-</div>
+    <div class="post-thumbnils" style="border-radius: 2%;">
+        <img src="{{noticia.imagen.url}}">
+        </div>
+    <div class=detail-inner>
+        <p>{{noticia.contenido|linebreaks}}</p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 
-<!-- FORMULARIO PARA INTRODUCIR COMENTARIOS -->
+    <!-- COMENTARIOS -->
+    <div class=post-comments>
+    <h3 class=comment-title><span> {{ noticia.comentarios.count }} comentarios en esta noticia</span></h3>
 
+    <ul class=comments-list>
+        {% for comentario in comentarios_aprobados %}
+    <li>
+    <!-- <div class=comment-img>
+    <img data-pagespeed-lazy-src="assets/images/blog/xcomment1.jpg.pagespeed.ic.nTUzOhBqKr.webp" alt=img data-pagespeed-url-hash=3568828081 src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+    </div> -->
+    <div class=comment-desc>
+    <div class=desc-top>
+    <h6>{{ comentario.nombre }}</h6>
+    <span class=date>{{ comentario.fecha_creacion }}</span>
+    <a href="javascript:void(0)" class=reply-link><i class="lni lni-reply"></i>Responder</a>
+    </div>
+    <p>{{ comentario.contenido }}</p>
+    </div>
+    </li>
+    {% endfor %}
+    </ul>
+    </div>
 
+    
+    <div class=comment-form>
+    <h3 class=comment-reply-title>Deja tu comentario</h3>
+    <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">
+    <input type="hidden" name="pagina" value="{{ noticia.slug }}">
+    {% csrf_token %}
+    <div class=row>
+    <div class=col-12>
+    <div class="form-box form-group">
+    <label>Comentario</label>
+    <textarea name="mensaje" class="form-control form-control-custom" placeholder="Escribe tu comentario"></textarea>
+    </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-12">
+    <div class="form-box form-group">
+    <label>Nombre</label>
+    <input type=text name="nombre" class="form-control form-control-custom" placeholder="Tu nombre" />
+    </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-12">
+    <div class="form-box form-group">
+    <label>Correo electrónico</label>
+    <input type=email name="email" class="form-control form-control-custom" placeholder="example@gmail.com" />
+    </div>
+    </div>
+    <div class=col-12>
+    <div class=button>
+    <button type=submit class=btn>Enviar comentario</button>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
 
-{% endblock %}
-{% endfor %}
-<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
-
-
-
+    {% endblock %}
+    {% endfor %}
