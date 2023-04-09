@@ -22,7 +22,7 @@
     <h4>
     <a href="/blog/{{noticias.slug}}">{{noticias.titulo}}</a>
     </h4>
-    <p>{{ noticias.contenido|slice:":250" }}</p>
+    <p>{{ noticias.contenido|slice:":250"|safe }}</p>
     <a href="/blog/{{noticias.slug}}" class=more-btn>Leer más <i class="lni lni-arrow-right"></i></a>
     </div>
     </div>

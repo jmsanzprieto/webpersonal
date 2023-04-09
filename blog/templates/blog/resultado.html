@@ -21,7 +21,7 @@
     <h4>
     <a href="/blog/{{resultados.slug}}">{{resultados.titulo}}</a>
     </h4>
-    <p>{{ resultados.contenido|slice:":250" }}</p>
+    <p>{{ resultados.contenido|slice:":250"|safe }}</p>
     <a href="/blog/{{resultados.slug}}" class=more-btn>Leer más <i class="lni lni-arrow-right"></i></a>
     </div>
     </div>
