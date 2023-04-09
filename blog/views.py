@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse
 
 # Importamos el modelo para acceder a la bd
-from .models import Blog,Comentario
+from .models import Blog,Comentario,Categoria
 
 
 # Importamos el formulario que hemos creado
@@ -34,7 +34,31 @@ class noticia(DetailView):
         comentarios_aprobados = self.object.comentarios.filter(aprobado=True)
         context['comentarios_aprobados'] = comentarios_aprobados
 
+        # Llamar al método aumentar_visitas() del modelo Blog
+        self.object.aumentar_visitas()
+
         return context
+
+# Mostramos las noticias de una categoria concreta 
+class categoria(DetailView):
+    model = Categoria
+    template_name = 'blog/categoria.html'
+    context_object_name = 'categoria'
+    slug_field = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Obtener la categoría actual
+        categoria_actual = self.get_object()
+
+        # Obtener todas las noticias relacionadas con la categoría actual
+        noticias = categoria_actual.noticias.all()
+
+        context['noticias'] = noticias
+        return context
+
+
 
 
 # Guardar comentarios
@@ -54,14 +78,20 @@ def agregar_comentario(request):
         try:
             blog = Blog.objects.get(slug=nombre_pagina)
         except Blog.DoesNotExist:
-            return redirect('/blog/'+nombre_pagina+"?KO")
+            return redirect('/blog/'+nombre_pagina+"?KO#comentario")
 
         # Agregar el objeto Blog al campo de ManyToManyField del modelo Comentario
         comentario.save() # Guardar el comentario para obtener un ID
         comentario.blog.add(blog) # Agregar el objeto Blog
         comentario.save() # Guardar el comentario con la relación ManyToManyField actualizada
 
-        return redirect('/blog/'+nombre_pagina+"?OK")
+        return redirect('/blog/'+nombre_pagina+"?OK#comentario")
+    
+# Buscar resultados
+def buscar_noticias(request):
+    query = request.POST.get('cadena')
+    resultado = Blog.buscar(query)
+    return render(request, 'blog/resultado.html', {'resultados': resultado})
             
 
 

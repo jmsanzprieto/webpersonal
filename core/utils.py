@@ -3,3 +3,6 @@ from .models import Pagina
 
 def obtener_paginas():
     return Pagina.objects.all()
+
+
+  

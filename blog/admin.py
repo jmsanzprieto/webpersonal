@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import Blog
 from .models import Comentario
 from .models import Autor
+from .models import Categoria
 
 # Register your models here.
 # Extendiendo las funcionalidades del admin
@@ -41,3 +42,11 @@ class AutorAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Autor, AutorAdmin)  # Registra la clase Autor en el panel de administración y le aplica la personalización de AutorAdmin
+
+
+# Añadimos al admin la gestión de las categorias
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'slug')  # Campos a mostrar en la lista de objetos de Autor
+    verbose_name_plural = 'Categorias'
+
+admin.site.register(Categoria, CategoriaAdmin)  # Registra la clase Autor en el panel de administración y le aplica la personalización de AutorAdmin

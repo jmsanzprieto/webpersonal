@@ -5,22 +5,11 @@
     {% for noticias in noticias %}
     <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
     {% block content %}
-    {%  if 'OK' in request.GET %}
-    <div class="text-center mb-3">
-        <div class="fw-bolder alert alert-success"><span class="text-success">  El comentario se ha guardado correctamente</span></div>
-    </div>
-    {% endif %}
-    {%  if 'KO' in request.GET %}
-        <div class="text-center mb-3">
-            <div class="fw-bolder alert alert-danger"><span class="text-danger">  Se ha producido un error guardando el comentario</span></div>
-        </div>
-    {% endif %}
     <div class="blog-single">
     <div class=single-inner>
     <div class=post-details>
     <div class=main-content-head>
     <div class=meta-information>
-    <h2 class=post-title>{{noticia.titulo}} </h2>
 
     <ul class=meta-info>
     <li>
@@ -47,6 +36,10 @@
     </div>
 
     <!-- COMENTARIOS -->
+
+    <a name="comentario" style="margin-top: 200px;">aqui está el anchor de comentarios</a>
+
+
     <div class=post-comments>
     <h3 class=comment-title><span> {{ noticia.comentarios.count }} comentarios en esta noticia</span></h3>
 
@@ -68,8 +61,18 @@
     {% endfor %}
     </ul>
     </div>
-
-    
+    <div class="mensajes" style="padding: 20px;">
+    {%  if 'OK' in request.GET %}
+    <div class="text-center mb-3">
+        <div class="alert alert-success"><span class="text-success">  El comentario se ha guardado correctamente</span></div>
+    </div>
+    {% endif %}
+    {%  if 'KO' in request.GET %}
+        <div class="text-center mb-3">
+            <div class="alert alert-danger"><span class="text-danger">  Se ha producido un error guardando el comentario</span></div>
+        </div>
+    {% endif %}
+</div>
     <div class=comment-form>
     <h3 class=comment-reply-title>Deja tu comentario</h3>
     <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">

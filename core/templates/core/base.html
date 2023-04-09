@@ -6,7 +6,18 @@
     {% load static %}
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>José Manuel Sanz</title>
+    <title>
+        {% if noticia %}
+            {{ noticia.titulo }}
+        {% elif pagina %}
+            {{ pagina.titulo }}
+        {% elif categoria %}
+            {{ categoria.nombre}}
+        {% else %}
+            Inicio
+        {% endif %}
+    | José Manuel Sanz
+    </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/assets/images/favicon.svg' %}" />
@@ -22,16 +33,7 @@
 </head>
 <body>
 
-<div class=preloader>
-<div class=preloader-inner>
-<div class=preloader-icon>
-<span></span>
-<span></span>
-</div>
-</div>
-</div>
-
-<!-- Start Header Area -->
+    <!-- Start Header Area -->
 <header class="header navbar-area">
     <div class="container">
         <div class="row align-items-center">
@@ -78,13 +80,37 @@
 <div class="row align-items-center">
 <div class="col-lg-6 col-md-6 col-12">
 <div class=breadcrumbs-content>
-<h1 class=page-title>Blog Grid Sidebar</h1>
+<h2 class=page-title>
+    {% if noticia %}
+        <h2>{{ noticia.titulo }}</h2>
+        <h3>{{ noticia.subtitulo}}</h3>
+    {% elif pagina %}
+        <h2>{{ pagina.titulo }}</h2>
+        <h3>{{ pagina.subtitulo }}</h3>
+    {% elif categoria %}
+        <h3>Noticias de la categoria: {{ categoria.nombre}}</h3>
+    {% elif resultados %}
+        <h3>Resultados de la busqueda</h3>
+        {% else %}
+        <h2>Inicio</h2>
+    {% endif %}
+</h2>
 </div>
 </div>
 <div class="col-lg-6 col-md-6 col-12">
 <ul class=breadcrumb-nav>
-<li><a href=index.html>Home</a></li>
-<li>Blog Grid Sidebar</li>
+
+
+    {% if noticia %}
+    <li><a href="{% url 'home' %}">Inicio</a>
+        <a href="/blog/{{noticia.slug}}/"> | {{ noticia.titulo }}</a>
+    </li>   
+    {% elif pagina %}
+    <li><a href="{% url 'home' %}">Inicio</a>
+        <a href="/pagina/{{pagina.slug}}/"> | {{ pagina.titulo }} </a>
+    </li>
+    {% endif %}
+
 </ul>
 </div>
 </div>
@@ -107,78 +133,36 @@
 <div class=sidebar>
 
 <div class="widget search-widget">
-<h5 class=widget-title>Search This Site</h5>
-<form action="#">
-<input type=text placeholder="Search ...">
+<h5 class=widget-title>Buscador</h5>
+<form id="BusquedaForm" action="{% url 'buscar_noticias' %}" method="POST">
+{% csrf_token %}
+<input type=text name="cadena" placeholder="Buscar ...">
 <button type=submit><i class="lni lni-search-alt"></i></button>
 </form>
 </div>
 
-
 <div class="widget popular-feeds">
-<h5 class=widget-title>Popular Feeds</h5>
+<h5 class=widget-title>Noticias más leidas</h5>
 <div class=popular-feed-loop>
-<div class=single-popular-feed>
-<div class=feed-desc>
-<a href="javascript:void(0)" class=cetagory>Creative</a>
-<h6 class=post-title><a href=blog-single.html>Bringing Great Design
-Ideas To Completion</a></h6>
-<span class=time><i class="lni lni-calendar"></i> 05th Nov 2023</span>
-</div>
-</div>
-<div class=single-popular-feed>
-<div class=feed-desc>
-<a href="javascript:void(0)" class=cetagory>Jobs</a>
-<h6 class=post-title><a href=blog-single.html>Live Life Smart And
-Focus On The Positive</a></h6>
-<span class=time><i class="lni lni-calendar"></i> 24th March 2023</span>
-</div>
-</div>
-<div class=single-popular-feed>
-<div class=feed-desc>
-<a href="javascript:void(0)" class=cetagory>Marketing</a>
-<h6 class=post-title><a href=blog-single.html>How did we get 1M+
-visitors in 30 days without anything!</a></h6>
-<span class=time><i class="lni lni-calendar"></i> 30th Jan 2023</span>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="widget categories-widget">
-<h5 class=widget-title>Categories</h5>
-<ul class=custom>
-<li>
-<a href="javascript:void(0)">Web Design</a>
-</li>
-<li>
-<a href="javascript:void(0)">Branding</a>
-</li>
-<li>
-<a href="javascript:void(0)">Graphic Design</a>
-</li>
-<li>
-<a href="javascript:void(0)">Marketing</a>
-</li>
-<li>
-<a href="javascript:void(0)">Wireframing</a>
-</li>
-</ul>
+    {% for noticia in mas_leidas %}
+        <div class=single-popular-feed>
+        <div class=feed-desc>
+        <h6 class=post-title><a href="/blog/{{noticia.slug}}">{{ noticia.titulo }}</a></h6>
+        <span class=time><i class="lni lni-calendar"></i> {{ noticia.fecha_creacion }}</span>
+    </div>
+    </div>
+    {% endfor %}
+</div>
 </div>
 
 
 <div class="widget popular-tag-widget">
-<h5 class=widget-title>Popular Tags</h5>
+<h5 class=widget-title>Categorias</h5>
 <div class=tags>
-<a href="javascript:void(0)">Popular</a>
-<a href="javascript:void(0)">Design</a>
-<a href="javascript:void(0)">UX</a>
-<a href="javascript:void(0)">Consult</a>
-<a href="javascript:void(0)">Ui</a>
-<a href="javascript:void(0)">Interview</a>
-<a href="javascript:void(0)">Develop</a>
-<a href="javascript:void(0)">Business</a>
+{% for categoria in categorias %}
+<a href="/categoria/{{categoria.slug}}/"> {{ categoria.nombre}}</a>
+{% endfor %}
 </div>
 </div>
 
@@ -202,12 +186,12 @@ visitors in 30 days without anything!</a></h6>
 
 <div class="single-footer f-about">
 <div class=logo>
-<a href=index.html>
-<img src="{% static 'core/assets/images/logo/logo.svg' %}" alt="#" data-pagespeed-url-hash=3401173408 onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+<a href="{% url 'home' %}">
+<img src="{% static 'core/assets/images/logo/logo.svg' %}" alt="#">
 </a>
 </div>
-<p>Making the world a better place through constructing elegant hierarchies.</p>
-<p class=copyright-text><span>© 2023 Blink.</span>Designed and Developed by <a href="https://graygrids.com/" rel=nofollow target=_blank>GrayGrids</a>
+<p>Un blog fruto del aprendizaje de Python / Django.</p>
+<p class=copyright-text><span>José Manuel Sanz © 2023 </span>Basado en el tema Blink de <a href="https://graygrids.com/" rel=nofollow target=_blank>GrayGrids</a>
 </p>
 </div>
 

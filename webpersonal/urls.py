@@ -19,7 +19,9 @@ from core import views as core_views
 from blog import views as blog_views
 from core.views import pagina
 from blog.views import noticia
+from blog.views import categoria
 from blog.views import agregar_comentario
+from blog.views import buscar_noticias
 
 
 
@@ -33,17 +35,18 @@ urlpatterns = [
     # Mostramos una noticia concreta
     path('blog/<slug:slug>/', noticia.as_view(), name='noticia'),
     # Mostramos una noticia concreta
-   
-     # Mostramos una pagina concreta
+    # Mostramos una pagina concreta
     path('pagina/<slug:slug>/', pagina.as_view(), name='pagina-detalle'),
     # Mostramos una pagina concreta
-    path('about',core_views.about, name="about"),
-    #path('contacto',core_views.contacto, name="contacto"),
+    # Mostramos una categoria concreta
+    path('categoria/<slug:slug>/', categoria.as_view(), name='categoria'),
+    # Mostramos una categoria concreta
     path('contacto', include('contacto.urls')),
     path('admin/', admin.site.urls),
 
     # otras URLs existentes...
     path('procesar-comentario/', blog_views.agregar_comentario, name='procesar_comentario'),
+    path('buscar-noticia/', blog_views.buscar_noticias, name='buscar_noticias'),
 ]
 
 
