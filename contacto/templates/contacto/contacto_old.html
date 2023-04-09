@@ -1,0 +1,47 @@
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content %}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="my-5">
+                    {%  if 'OK' in request.GET %}
+                        <div class="text-center mb-3">
+                            <div class="fw-bolder"><span class="text-success">  El mensaje se ha enviado correctamente</span></div>
+                        </div>
+                    {% endif %}
+                    {%  if 'KO' in request.GET %}
+                    <div class="text-center mb-3">
+                        <div class="fw-bolder"><span class="text-danger">  Se ha producido un error enviando el mensaje</span></div>
+                    </div>
+                    {% endif %}
+                    <form id="contactForm" action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-floating">
+                            {{contacto.nombre}}
+                            <label for="name">{{ contacto.nombre.label_tag }}</label>
+                        </div>
+                        <div class="form-floating">
+                            {{contacto.email}}
+                            <label for="name">{{ contacto.email.label_tag }}</label>
+                        </div>
+                        <div class="form-floating">
+                            {{contacto.mensaje}}
+                            <label for="name">{{ contacto.mensaje.label_tag }}</label>
+                        </div>
+                        <br />
+                        <!-- Submit Button-->
+                        <input type="submit" class="btn btn-primary text-uppercase  value="Enviar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>    
+
+
+
+{% endblock %}

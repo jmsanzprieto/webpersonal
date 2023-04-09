@@ -1,58 +1,53 @@
 <!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
 {% extends 'core/base.html' %}
 
-<!-- IMAGEN DE LA CABECERA -->
-{% block background %}{% load static %}{% static 'core/assets/img/contact-bg.jpg' %}{% endblock %}
-
-<!-- CONTENIDO DE LA CABECERA -->
-{% block cabecera %}
-<div class="site-heading">
-    <h2>Contacto</h2>
-    <span class="subheading">Dejame un mensaje y te contestaré lo antes posible</span>
-</div>
-{% endblock %}
-
 <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
 {% block content %}
-<main class="mb-4">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="my-5">
-                    {%  if 'OK' in request.GET %}
-                        <div class="text-center mb-3">
-                            <div class="fw-bolder"><span class="text-success">  El mensaje se ha enviado correctamente</span></div>
-                        </div>
-                    {% endif %}
-                    {%  if 'KO' in request.GET %}
-                    <div class="text-center mb-3">
-                        <div class="fw-bolder"><span class="text-danger">  Se ha producido un error enviando el mensaje</span></div>
-                    </div>
-                    {% endif %}
-                    <form id="contactForm" action="" method="POST">
-                        {% csrf_token %}
-                        <div class="form-floating">
-                            {{contacto.nombre}}
-                            <label for="name">{{ contacto.nombre.label_tag }}</label>
-                        </div>
-                        <div class="form-floating">
-                            {{contacto.email}}
-                            <label for="name">{{ contacto.email.label_tag }}</label>
-                        </div>
-                        <div class="form-floating">
-                            {{contacto.mensaje}}
-                            <label for="name">{{ contacto.mensaje.label_tag }}</label>
-                        </div>
-                        <br />
-                        <!-- Submit Button-->
-                        <input type="submit" class="btn btn-primary text-uppercase  value="Enviar">
-                    </form>
-                </div>
-            </div>
-        </div>
+{%  if 'OK' in request.GET %}
+<div class="text-center mb-3">
+    <div class="alert alert-success"><span class="text-success">  El mensaje se ha enviado correctamente</span></div>
+</div>
+{% endif %}
+{%  if 'KO' in request.GET %}
+    <div class="text-center mb-3">
+        <div class="alert alert-danger"><span class="text-danger">  Se ha producido un error enviando el mensaje</span></div>
     </div>
-</main>    
+{% endif %}
+<div class="contact-us section">
+<div class=container>
+<div class=row>
+<div class="col-lg-6 col-12">
+<div class=contact-form>
+<form id="contactForm" action="" method="POST">
+    {% csrf_token %} 
+    <div class="form-group">
+        {{contacto.nombre}}
 
+    </div>
+    <div class="form-group">
+        {{contacto.email}}
 
+    </div>
+    <div class="form-group">
+        {{contacto.mensaje}}
 
-{% endblock %}
+    </div>
+    <br />
+<div class=button>
+    <input type="submit" class="btn btn-primary text-uppercase"  value="Enviar mensaje">
+</div>
+</form>
+</div>
+</div>
+<div class="col-lg-6 col-12">
+<div class=contact-widget-wrapper>
+<div class=main-title>
+<h2>Deja tu mensaje y te contestaré tan pronto como pueda</h2>
+<p>Este sitio web es solamente a efectos de aprendizaje, con lo cual es probable que alguna función, incluido este formulario de contacto, en alguna ocasión esté deshabilitada.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock%}

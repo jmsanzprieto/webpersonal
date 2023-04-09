@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Pagina(models.Model):
@@ -7,7 +8,7 @@ class Pagina(models.Model):
     titulo = models.CharField(max_length=250)
     slug = models.SlugField(unique=True, default=0)
     subtitulo = models.CharField(max_length=250)
-    contenido = models.TextField()
+    contenido = RichTextField()
     imagen = models.ImageField(upload_to='paginas')
     fecha_creacion = models.DateTimeField(auto_now_add=True) # Se añade la hora de forma automática cuando se crea el registro
     fecha_actualizacion = models.DateTimeField(auto_now=True) # Se añade la hora de forma automática al actualizarse el campo

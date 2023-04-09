@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Si queremos usar la configuración extendida de apps.py, hemos de modificar blog y cambiarlo por blog.apps.BlogConfig
     'blog.apps.BlogConfig',
     'contacto',
+     'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,38 @@ EMAIL_HOST = 'xxxxxxxxxxxxxxxxxxxxxxx'
 EMAIL_HOST_USER = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 EMAIL_HOST_PASSWORD = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 EMAIL_PORT = 'xxxxxxxxxxxxxxxxxxxxxxx'
+
+
+# Configuracion para CKEDITOR
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ['NumberedList', 'BulletedList', 'Blockquote'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
+            ['Format', 'Styles'],
+            ['Maximize', 'ShowBlocks', 'RemoveFormat'],
+        ],
+        'width': '100%',
+        'height': '500',
+        'extraPlugins': ','.join([
+            'codesnippet',
+            'image2',
+            'autogrow',
+        ]),
+        'removePlugins': 'stylesheetparser',
+        'codeSnippet_theme': 'default',
+        'autogrow_onStartup': True,
+        'autogrow_bottomSpace': 50,
+        'autogrow_minHeight': 200,
+    },
+}

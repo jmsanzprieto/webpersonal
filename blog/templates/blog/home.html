@@ -22,7 +22,7 @@
     <h4>
     <a href="/blog/{{noticias.slug}}">{{noticias.titulo}}</a>
     </h4>
-    <p>{{ noticias.contenido|slice:":250" }}</p>
+    <p>{{ noticias.contenido|slice:":150"|safe }}</p>
     <a href="/blog/{{noticias.slug}}" class=more-btn>Leer más <i class="lni lni-arrow-right"></i></a>
     </div>
     </div>
@@ -34,7 +34,7 @@
     <!-- CARGAMOS LAS NOTICIAS -->
     </div>
     
-    <div class="pagination left">
+    <!-- <div class="pagination left">
     <ul class=pagination-list>
     <li><a href="javascript:void(0)">Prev</a></li>
     <li class=active><a href="javascript:void(0)">2</a></li>
@@ -42,7 +42,7 @@
     <li><a href="javascript:void(0)">4</a></li>
     <li><a href="javascript:void(0)">Next</a></li>
     </ul>
-    </div>
+    </div> -->
     
    
     {% endblock %}
