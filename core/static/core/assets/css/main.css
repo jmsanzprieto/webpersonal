@@ -861,13 +861,14 @@ ul,ol {
   }
 }
 
+
 .breadcrumbs {
   position: relative;
   padding-top: 140px;
   padding-bottom: 50px;
   z-index: 2;
   text-align: left;
-  background: #569be5;
+  background: #eeeeee;
   -webkit-box-shadow: 0 7px 30px rgba(0,0,0,.075);
   box-shadow: 0 7px 30px rgba(0,0,0,.075)
 }
@@ -897,7 +898,7 @@ ul,ol {
   font-weight: 600;
   position: relative;
   line-height: 28px;
-  text-transform: capitalize
+  text-transform: none
 }
 
 @media only screen and (min-width: 768px) and (max-width:991px) {
@@ -939,8 +940,8 @@ ul,ol {
   position: relative;
   padding-right: 14px;
   margin-right: 14px;
-  text-transform: capitalize;
-  color: #fff
+  text-transform: none;
+  color: #000;
 }
 
 .breadcrumbs .breadcrumb-nav li:after {
@@ -962,7 +963,7 @@ ul,ol {
 }
 
 .breadcrumbs .breadcrumb-nav li,.breadcrumbs .breadcrumb-nav li a {
-  color: #fff;
+  color: #000;
   font-size: 14px;
   font-weight: 500
 }
@@ -980,7 +981,7 @@ ul,ol {
 }
 
 .breadcrumbs .breadcrumb-nav li a:hover {
-  color: #e4e4e4
+  color: #fd723b
 }
 
 .section {
@@ -1020,14 +1021,14 @@ ul,ol {
   border: 2px solid #569be5;
   border-radius: 30px;
   padding: 8px 30px;
-  text-transform: capitalize
+  text-transform: none
 }
 
 .section-title h2 {
   font-size: 34px;
   margin-bottom: 25px;
   line-height: 42px;
-  text-transform: capitalize;
+  text-transform: none;
   position: relative;
   font-weight: 700
 }
@@ -1241,7 +1242,7 @@ ul,ol {
 
 .button .btn {
   display: inline-block;
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 15px;
   font-weight: 500;
   padding: 16px 30px;
@@ -1436,11 +1437,11 @@ ul,ol {
   }
 
   .header .navbar .navbar-nav .nav-item a:hover {
-      color: #569be5!important
+      color: #fd723b !important
   }
 
   .header .navbar .navbar-nav .nav-item a.active {
-      color: #569be5!important
+      color: #fd723b !important
   }
 
   .header .navbar-nav .nav-item {
@@ -1448,7 +1449,7 @@ ul,ol {
   }
 
   .header .navbar-nav .nav-item:hover a {
-      color: #569be5
+      color: #fd723b
   }
 
   .header .navbar-nav .nav-item a {
@@ -1477,7 +1478,7 @@ ul,ol {
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item a:hover {
-      color: #569be5!important
+      color: #5fd723b !important
   }
 
   .header .navbar-nav .nav-item a {
@@ -1498,7 +1499,7 @@ ul,ol {
 
   .header .navbar-nav .nav-item .sub-menu li.active {
       background: #fff!important;
-      color: #569be5!important
+      color: #fd723b !important
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item {
@@ -1511,7 +1512,7 @@ ul,ol {
 
   .header .navbar-nav .nav-item .sub-menu li:hover {
       background: #fff!important;
-      color: #569be5!important
+      color: #fd723b !important
   }
 
   .header .navbar-nav .nav-item a {
@@ -1519,7 +1520,7 @@ ul,ol {
   }
 
   .header .navbar-nav .nav-item a:hover {
-      color: #569be5
+      color: #fd723b
   }
 }
 
@@ -1611,7 +1612,7 @@ ul,ol {
 
   .header .navbar-nav .nav-item .sub-menu li.active {
       background: #fff!important;
-      color: #569be5!important
+      color: #fd723b !important
   }
 
   .header .navbar-nav .nav-item .sub-menu .nav-item {
@@ -1624,7 +1625,7 @@ ul,ol {
 
   .header .navbar-nav .nav-item .sub-menu li:hover {
       background: #fff!important;
-      color: #569be5!important
+      color: #fd723b !important
   }
 
   .header .navbar-nav .nav-item a {
@@ -1684,11 +1685,11 @@ ul,ol {
 }
 
 .header .navbar .navbar-nav .nav-item a.active {
-  color: #569be5
+  color: #fd723b
 }
 
 .sticky .navbar .navbar-nav .nav-item a.active {
-  color: #569be5
+  color: #fd723b
 }
 
 .sticky .navbar .navbar-nav .nav-item a {
@@ -1786,11 +1787,11 @@ ul,ol {
 }
 
 .navbar-nav .nav-item:hover a {
-  color: #569be5
+  color: #fd723b
 }
 
 .sticky .navbar-nav .nav-item:hover a {
-  color: #569be5
+  color: #fd723b
 }
 
 .navbar-nav .nav-item a {
@@ -1809,7 +1810,7 @@ ul,ol {
   font-weight: 500;
   transition: all .3s ease-out 0s;
   position: relative;
-  text-transform: capitalize
+  text-transform: none
 }
 
 .navbar-nav .nav-item a::after {
@@ -1907,7 +1908,7 @@ ul,ol {
   width: 100%;
   font-size: 14px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   position: relative;
   z-index: 1;
   border-radius: 4px;
@@ -1944,7 +1945,7 @@ ul,ol {
 }
 
 .navbar-nav .nav-item .sub-menu>li.active>a {
-  color: #569be5!important
+  color: #fd723b!important
 }
 
 .navbar-nav .nav-item .sub-menu>li>a {
@@ -1993,11 +1994,11 @@ ul,ol {
 }
 
 .sticky .button .signin:hover {
-  color: #569be5
+  color: #fd723b
 }
 
 .sticky .button .signup {
-  background-color: #569be5;
+  background-color: #fd723b;
   color: #fff
 }
 
@@ -2015,11 +2016,11 @@ ul,ol {
 }
 
 .others-pages .button .signin:hover {
-  color: #569be5
+  color: #fd723b
 }
 
 .others-pages .button .signup {
-  background-color: #569be5;
+  background-color: #fd723b;
   color: #fff
 }
 
@@ -2034,11 +2035,11 @@ ul,ol {
   }
 
   .header .button .signin:hover {
-      color: #569be5
+      color: #fd723b
   }
 
   .header .button .signup {
-      background-color: #569be5;
+      background-color: #fd723b;
       color: #fff
   }
 
@@ -2241,7 +2242,7 @@ ul,ol {
   line-height: 53px;
   color: #151515;
   margin: 0 0 18px;
-  text-transform: capitalize;
+  text-transform: none;
   overflow: hidden
 }
 
@@ -2380,7 +2381,7 @@ ul,ol {
 }
 
 .hero-area.style2 .hero-content h1 {
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 38px;
   line-height: 53px;
   overflow: hidden
@@ -2682,7 +2683,7 @@ ul,ol {
 }
 
 .achievement .single-achievement p {
-  text-transform: capitalize
+  text-transform: none
 }
 
 @media (max-width: 767px) {
@@ -3694,7 +3695,7 @@ blockquote span {
   margin-bottom: 30px!important;
   position: relative;
   z-index: 1;
-  text-transform: capitalize
+  text-transform: none
 }
 
 .post-comments .comments-list li {
@@ -3846,7 +3847,7 @@ blockquote span {
   margin-bottom: 30px!important;
   position: relative;
   z-index: 1;
-  text-transform: capitalize
+  text-transform: none
 }
 
 .comment-form form .form-box {
@@ -4105,7 +4106,7 @@ blockquote span {
   -ms-flex-pack: center;
   justify-content: center;
   padding: 8px 20px;
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 14px;
   font-weight: 400;
   background: #569be5;
@@ -5118,4 +5119,16 @@ blockquote span {
 
 .social-icons li {
   margin-right: 20px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.checkbox-container label {
+  margin-left: 10px;
+}
+.checkbox-container input[type="checkbox"] {
+  margin: 0;
 }

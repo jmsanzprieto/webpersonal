@@ -10,7 +10,6 @@
     <div class=post-details>
     <div class=main-content-head>
     <div class=meta-information>
-
     <ul class=meta-info>
     <li>
     <a href="javascript:void(0)">Por {{noticia.autor}}</a>
@@ -19,7 +18,7 @@
     <a href="javascript:void(0)">{{noticia.fecha_creacion}}</a>
     </li>
     <li>
-    <a href="javascript:void(0)">Marketing</a>
+    <a href="javascript:void(0)">{{noticia.categoria}}</a>
     </li>
     </ul>
     
@@ -37,9 +36,7 @@
 
     <!-- COMENTARIOS -->
 
-    <a name="comentario" style="margin-top: 200px;">aqui está el anchor de comentarios</a>
-
-
+    <a name="comentario" style="margin-top: 200px;"></a>
     <div class=post-comments>
     <h3 class=comment-title><span> {{ noticia.comentarios.count }} comentarios en esta noticia</span></h3>
 
@@ -98,6 +95,10 @@
     </div>
     </div>
     <div class=col-12>
+        <div class="form-box form-group checkbox-container">
+            <input type="checkbox" name="acepto" id="acepto" required>
+            <label for="acepto"><br>He leído y acepto los términos y condiciones</label>
+    </div>
     <div class=button>
     <button type=submit class=btn>Enviar comentario</button>
     </div>
