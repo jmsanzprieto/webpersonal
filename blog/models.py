@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Q
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
+from django.utils.translation import gettext_lazy as _
+
 
 # Create your models here.
 
@@ -14,6 +16,22 @@ class Autor(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, default=0)
+
+    # Algunas definiciones extra
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.nombre)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nombre
+    
+    def get_noticias(self):
+        return self.categorias.all()
+
 
 # Creamos la clase con la definición de los campos
 class Blog(models.Model):
@@ -27,6 +45,8 @@ class Blog(models.Model):
     fecha_actualizacion = models.DateTimeField(auto_now=True) # Se añade la hora de forma automática al actualizarse el campo
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE, related_name='blogs')
     num_visitas = models.PositiveIntegerField(default=0) # Nuevo campo para contabilizar el número de visitas
+    categorias = models.ManyToManyField(Categoria, related_name=_('categorias'))
+  
     
     # Algunas definiciones extra
     def save(self, *args, **kwargs):
@@ -66,6 +86,8 @@ class Comentario(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     aprobado = models.BooleanField(default=False)
     blog = models.ManyToManyField(Blog, related_name='comentarios')
+   
+
     
     class Meta:
         ordering = ["fecha_creacion"]
@@ -76,20 +98,6 @@ def __str__(self):
 
 
 
-# Categorias de las noticias
-class Categoria(models.Model):
-    nombre = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, default=0)
-    noticias = models.ManyToManyField(Blog, related_name='categorias')
-
-
-     # Algunas definiciones extra
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.nombre)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.nombre
 
 
 

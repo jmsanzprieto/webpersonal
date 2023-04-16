@@ -45,7 +45,7 @@ class categoria(DetailView):
     template_name = 'blog/categoria.html'
     context_object_name = 'categoria'
     slug_field = 'slug'
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -53,7 +53,7 @@ class categoria(DetailView):
         categoria_actual = self.get_object()
 
         # Obtener todas las noticias relacionadas con la categoría actual
-        noticias = categoria_actual.noticias.all()
+        noticias = categoria_actual.get_noticias()
 
         context['noticias'] = noticias
         return context

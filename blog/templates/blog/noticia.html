@@ -1,112 +1,180 @@
-    <!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
-    {% extends 'core/base.html' %}
-    <!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
-    
-    {% for noticias in noticias %}
-    <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
-    {% block content %}
-    <div class="blog-single">
-    <div class=single-inner>
-    <div class=post-details>
-    <div class=main-content-head>
-    <div class=meta-information>
-    <ul class=meta-info>
-    <li>
-    <a href="javascript:void(0)">Por {{noticia.autor}}</a>
-    </li>
-    <li>
-    <a href="javascript:void(0)">{{noticia.fecha_creacion}}</a>
-    </li>
-    <li>
-    <a href="javascript:void(0)">{{noticia.categoria}}</a>
-    </li>
-    </ul>
-    
-    </div>
-    <div class="post-thumbnils" style="border-radius: 2%;">
-        <img src="{{noticia.imagen.url}}">
-        </div>
-    <div class=detail-inner>
-        <p>{{noticia.contenido|safe}}</p>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+<!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+{% extends 'core/base.html' %}
+<!-- POSIBILITAMOS EL MULTI IDIOMA  , hay que cargar esto en todos los templates -->
+{% load i18n %}
+<!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
 
-    <!-- COMENTARIOS -->
+{% for noticias in noticias %}
+<!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+{% block content %}
+<section class="blog-section pt-130">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-7">
+                <div class="left-side-wrapper mb-60">
+                    <div class="single-blog blog-style-2 mb-60 wow fadeInUp">
+                        <div class="blog-img blog-img-2">
+                            <img src="{{noticia.imagen.url}}" alt="#">
+                        </div>
+                        <div class="blog-content">
+                            <p>{{noticia.contenido|safe}}</p>
+                        </div>
+                    </div>
+                    <!-- LOS POST RELACIONADOS SERÁN 2 DE LA MISMA CATEGORIA QUE EL PRINCIPAL -->
+                    <!-- <div class="related-post mb-30">
+                        <h4 class="mb-40">Related Post</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-12 col-xl-6">
+                                <div class="single-blog mb-40 wow fadeInUp" data-wow-delay=".6s"
+                                    style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                    <div class="blog-img">
+                                        <a href="blog-single.html"><img
+                                                src="assets/img/blog/xblog-3.jpg.pagespeed.ic.nR-5rJAUwT.webp" alt=""
+                                                data-pagespeed-url-hash="2549843332"
+                                                onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>
+                                        <span class="date-meta">15 June, 2025</span>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h5 class="mb-15"><a href="blog-single.html">Colorful Easter Eggs</a></h5>
+                                        <p>Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy eirmod
+                                            tempor ividunt dolore
+                                            magna.</p>
+                                        <a href="blog-single.html" class="read-more-btn">Read More <i
+                                                class="lni lni-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-12 col-xl-6">
+                                <div class="single-blog mb-40 wow fadeInUp" data-wow-delay=".6s"
+                                    style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                    <div class="blog-img">
+                                        <a href="blog-single.html"><img
+                                                src="assets/img/blog/xblog-2.jpg.pagespeed.ic.xb1NU2mWer.webp" alt=""
+                                                data-pagespeed-url-hash="2255343411"
+                                                onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>
+                                        <span class="date-meta">15 June, 2025</span>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h5 class="mb-15"><a href="blog-single.html">Plan for what is difficult</a></h5>
+                                        <p>Lorem ipsum dolor sit amet, adipscing elitr, sed diam nonumy eirmod
+                                            tempor ividunt dolore
+                                            magna.</p>
+                                        <a href="blog-single.html" class="read-more-btn">Read More <i
+                                                class="lni lni-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- LOS POST RELACIONADOS SERÁN 2 DE LA MISMA CATEGORIA QUE EL PRINCIPAL -->
 
-    <a name="comentario" style="margin-top: 200px;"></a>
-    <div class=post-comments>
-    <h3 class=comment-title><span> {{ noticia.comentarios.count }} comentarios en esta noticia</span></h3>
+                    <div class="comment-form-wrapper ms-0">
+                        <h2 class="mb-40">{% trans "Comenta esta entrada" %}</h2>
+                        <form action="#" class="comment-form">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-12 col-xl-6">
+                                    <input type="text" name="name" id="name" placeholder="Name" required="">
+                                </div>
+                                <div class="col-md-6 col-lg-12 col-xl-6">
+                                    <input type="email" name="email" id="email" placeholder="Email" required="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <textarea name="message" id="message" placeholder="Type Comment"
+                                        rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button text-center">
+                                        <button type="submit" class="theme-btn">Submit Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <ul class=comments-list>
-        {% for comentario in comentarios_aprobados %}
-    <li>
-    <!-- <div class=comment-img>
+            <!-- COMENTARIOS -->
+
+            <!-- <a name="comentario"></a>
+            <div class=post-comments>
+                <h3 class=comment-title><span> {{ noticia.comentarios.count }} comentarios en esta noticia</span></h3>
+
+                <ul class=comments-list>
+                    {% for comentario in comentarios_aprobados %}
+                    <li>
+                        <!-- <div class=comment-img>
     <img data-pagespeed-lazy-src="assets/images/blog/xcomment1.jpg.pagespeed.ic.nTUzOhBqKr.webp" alt=img data-pagespeed-url-hash=3568828081 src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
     </div> -->
-    <div class=comment-desc>
-    <div class=desc-top>
-    <h6>{{ comentario.nombre }}</h6>
-    <span class=date>{{ comentario.fecha_creacion }}</span>
-    <a href="javascript:void(0)" class=reply-link><i class="lni lni-reply"></i>Responder</a>
-    </div>
-    <p>{{ comentario.contenido }}</p>
-    </div>
-    </li>
-    {% endfor %}
-    </ul>
-    </div>
-    <div class="mensajes" style="padding: 20px;">
-    {%  if 'OK' in request.GET %}
-    <div class="text-center mb-3">
-        <div class="alert alert-success"><span class="text-success">  El comentario se ha guardado correctamente</span></div>
-    </div>
-    {% endif %}
-    {%  if 'KO' in request.GET %}
-        <div class="text-center mb-3">
-            <div class="alert alert-danger"><span class="text-danger">  Se ha producido un error guardando el comentario</span></div>
-        </div>
-    {% endif %}
-</div>
-    <div class=comment-form>
-    <h3 class=comment-reply-title>Deja tu comentario</h3>
-    <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">
-    <input type="hidden" name="pagina" value="{{ noticia.slug }}">
-    {% csrf_token %}
-    <div class=row>
-    <div class=col-12>
-    <div class="form-box form-group">
-    <label>Comentario</label>
-    <textarea name="mensaje" class="form-control form-control-custom" placeholder="Escribe tu comentario"></textarea>
-    </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-12">
-    <div class="form-box form-group">
-    <label>Nombre</label>
-    <input type=text name="nombre" class="form-control form-control-custom" placeholder="Tu nombre" />
-    </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-12">
-    <div class="form-box form-group">
-    <label>Correo electrónico</label>
-    <input type=email name="email" class="form-control form-control-custom" placeholder="example@gmail.com" />
-    </div>
-    </div>
-    <div class=col-12>
-        <div class="form-box form-group checkbox-container">
-            <input type="checkbox" name="acepto" id="acepto" required>
-            <label for="acepto"><br>He leído y acepto los términos y condiciones</label>
-    </div>
-    <div class=button>
-    <button type=submit class=btn>Enviar comentario</button>
-    </div>
-    </div>
-    </div>
-    </form>
-    </div>
-
-    {% endblock %}
-    {% endfor %}
-    {{ form.media }}
+                        <!-- <div class=comment-desc>
+                            <div class=desc-top>
+                                <h6>{{ comentario.nombre }}</h6>
+                                <span class=date>{{ comentario.fecha_creacion }}</span>
+                                <a href="javascript:void(0)" class=reply-link><i class="lni lni-reply"></i>Responder</a>
+                            </div>
+                            <p>{{ comentario.contenido }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mensajes" style="padding: 20px;">
+                {% if 'OK' in request.GET %}
+                <div class="text-center mb-3">
+                    <div class="alert alert-success"><span class="text-success"> El comentario se ha guardado
+                            correctamente</span>
+                    </div>
+                </div>
+                {% endif %}
+                {% if 'KO' in request.GET %}
+                <div class="text-center mb-3">
+                    <div class="alert alert-danger"><span class="text-danger"> Se ha producido un error guardando el
+                            comentario</span></div>
+                </div>
+                {% endif %}
+            </div>
+            <div class=comment-form>
+                <h3 class=comment-reply-title>Deja tu comentario</h3>
+                <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">
+                    <input type="hidden" name="pagina" value="{{ noticia.slug }}">
+                    {% csrf_token %}
+                    <div class=row>
+                        <div class=col-12>
+                            <div class="form-box form-group">
+                                <label>Comentario</label>
+                                <textarea name="mensaje" class="form-control form-control-custom"
+                                    placeholder="Escribe tu comentario"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-box form-group">
+                                <label>Nombre</label>
+                                <input type=text name="nombre" class="form-control form-control-custom"
+                                    placeholder="Tu nombre" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-box form-group">
+                                <label>Correo electrónico</label>
+                                <input type=email name="email" class="form-control form-control-custom"
+                                    placeholder="example@gmail.com" />
+                            </div>
+                        </div>
+                        <div class=col-12>
+                            <div class="form-box form-group checkbox-container">
+                                <input type="checkbox" name="acepto" id="acepto" required>
+                                <label for="acepto"><br>He leído y acepto los términos y condiciones</label>
+                            </div>
+                            <div class=button>
+                                <button type=submit class=btn>Enviar comentario</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> --> 
+            {% endblock %}
+            {% endfor %}
+            {{ form.media }}

@@ -1,335 +1,323 @@
-<!DOCTYPE html>
-<html lang="es-ES">
+<!doctype html>
+<html lang="es">
 
 <head>
     <!-- HACEMOS LA LLAMADA A LA CARGA DE FICHEROS ESTÁTICOS -->
     {% load static %}
+    <!-- POSIBILITAMOS EL MULTI IDIOMA  , hay que cargar esto en todos los templates -->
+    {% load i18n %}
 
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>
         {% if noticia %}
-            {{ noticia.titulo }}
+        {{ noticia.titulo }}
         {% elif pagina %}
-            {{ pagina.titulo }}
+        {{ pagina.titulo }}
         {% elif categoria %}
-            {{ categoria.nombre}}
+        {{ categoria.nombre}}
         {% else %}
-            Inicio
+        Inicio
         {% endif %}
-    | José Manuel Sanz
+        | José Manuel Sanz
     </title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'core/assets/images/favicon.svg' %}" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{% static 'core/assets/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'core/assets/css/LineIcons.3.0.css' %}" />
-    <link rel="stylesheet" href="{% static 'core/assets/css/animate.css' %}" />
-    <link rel="stylesheet" href="{% static 'core/assets/css/tiny-slider.css' %}" />
-    <link rel="stylesheet" href="{% static 'core/assets/css/glightbox.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'core/assets/css/main.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'core/assets/css/bootstrap-5.0.0-beta1.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/assets/css/LineIcons.2.0.css' %}">
+    <link rel="stylesheet" href="{% static 'core/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'core/assets/css/tiny-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'core/assets/css/glightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/assets/css/main.css' %}">
+     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .titular_en_breadcrumb {
+            color: white;
+        }
+        .titular_en_breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+    </style>
 </head>
-<body>
 
-    <!-- Start Header Area -->
-<header class="header navbar-area">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-12">
-                <div class="nav-inner">
-                    <!-- Start Navbar -->
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- ========================= header start ========================= -->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="{% url 'home' %}">
                             <h4>José Manuel Sanz</h4>
                         </a>
-                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul id="nav" class="navbar-nav ms-auto">
-                                <li class="nav-item"><a class="nav-item px-lg-3 py-3 py-lg-4" href="{% url 'home' %}">Inicio</a></li>
-                                <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
-                                 {% for pagina in paginas %}
-                                     <li class="nav-item"><a class="nav-item px-lg-3 py-3 py-lg-4" href="/pagina/{{pagina.slug}}/">{{ pagina.titulo }}</a></li>
-                                 {% endfor %}
-                                 <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
-                                 <li class="nav-item"><a class="nav-item px-lg-3 py-3 py-lg-4" href="{% url 'contacto' %}">Contacto</a></li>        
-                            </ul>
-                        </div> <!-- navbar collapse -->
-                        <!-- <div class="button">
-                            <a href="signin.html" class="signin">Sign In</a>
-                            <a href="signup.html" class="signup">Sign Up</a>
-                        </div> -->
-                    </nav>
-                    <!-- End Navbar -->
+
+                        <ul id="nav" class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                            <li class="nav-item"><a href="{% url 'home' %}">{% trans "Inicio" %}</a></li>
+                            </li>
+                            <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
+                            {% for pagina in paginas %}
+                            <li class="nav-item"><a href="/pagina/{{pagina.slug}}/">{{ pagina.titulo }}</a></li>
+                            {% endfor %}
+                            <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
+                            <li class="nav-item"><a href="{% url 'contacto' %}">{% trans "Contacto" %}</a></li>
+                        </ul>
+
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+
+                        <select id="language-selector" onchange="location.href=this.value;">
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <option value="{% url 'change_language' lang_code %}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>{{ lang_name }}</option>
+                            {% endfor %}
+                        </select>
                 </div>
+
+                </nav>
             </div>
         </div> <!-- row -->
-    </div> <!-- container -->
-</header>
-<!-- End Header Area -->
+        </div> <!-- container -->
 
-<div class=breadcrumbs>
-<div class=container>
-<div class="row align-items-center">
-<div class="col-lg-6 col-md-6 col-12">
-<div class=breadcrumbs-content>
-<h2 class=page-title style="color: #ffffff !important;">
-    {% if noticia %}
-        <h2>{{ noticia.titulo }}</h2>
-        <h3>{{ noticia.subtitulo}}</h3>
-    {% elif pagina %}
-        <h2>{{ pagina.titulo }}</h2>
-        <h3>{{ pagina.subtitulo }}</h3>
-    {% elif categoria %}
-        <h3>Noticias de la categoria: {{ categoria.nombre}}</h3>
-    {% elif resultados %}
-        <h3>Resultados de la busqueda</h3>
-    {% elif contacto %}
-        <h3>Formulario de contacto</h3>
-        {% else %}
-        <h2>Inicio</h2>
-    {% endif %}
-</h2>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-12">
-<ul class=breadcrumb-nav>
+    </header>
+    <!-- ========================= header end ========================= -->
+    <section class="page-banner-section pt-75 pb-75 img-bg"
+        style="background-image:url({% static 'core/assets/img/bg/common-bg.svg' %})">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="banner-content">
 
+                        {% if noticia %}
+                        <h2 class="titular_en_breadcrumb">{{ noticia.titulo }}</h2>
+                        <h3 class="titular_en_breadcrumb">{{ noticia.subtitulo}}</h3>
+                        <div class=meta-information>
+                            <p class="meta-info titular_en_breadcrumb"><br>
+                                {% trans "Autor" %}: Por {{noticia.autor}} | {{noticia.fecha_creacion|date:"d \ F \ Y" }}
+                            </p>
+                            <p class="titular_en_breadcrumb">{% trans "Categorias" %}:     
+                                <a href="javascript:void(0)">
+                                {% for categoria in noticia.categorias.all %}
+                                 <a class="titular_en_breadcrumb" href="/categoria/{{categoria.slug}}/">{{ categoria.nombre }}</a>{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                                 </a>
+                            </p>
 
-    {% if noticia %}
-    <li><a href="{% url 'home' %}">Inicio</a>
-        <a href="/blog/{{noticia.slug}}/"> | {{ noticia.titulo }}</a>
-    </li>   
-    {% elif pagina %}
-    <li><a href="{% url 'home' %}">Inicio</a>
-        <a href="/pagina/{{pagina.slug}}/"> | {{ pagina.titulo }} </a>
-    </li>
-    {% endif %}
+                        </div>
+                        {% elif pagina %}
+                        <h2 class="titular_en_breadcrumb">{{ pagina.titulo }}</h2>
+                        <h3 class="titular_en_breadcrumb">{{ pagina.subtitulo }}</h3>
+                        {% elif categoria %}
+                        <h3 class="titular_en_breadcrumb">{% trans "Noticias de la categoria:" %} {{ categoria.nombre}}</h3>
+                        {% elif resultados %}
+                        <h3 class="titular_en_breadcrumb">{% trans "Resultados de la busqueda" %}</h3>
+                        {% elif contacto %}
+                        <h3 class="titular_en_breadcrumb">{% trans "Formulario de contacto" %}</h3>
+                        {% else %}
+                        <h2 class="titular_en_breadcrumb">{% trans "Inicio" %}</h2>
+                        {% endif %}
 
-</ul>
-</div>
-</div>
-</div>
-</div>
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        <a href="javascript:void(0)">
 
+                                        </a>
+                                    </li>
 
-<section class="section blog-grid-page">
-<div class=container>
-<div class=row>
-{% if not contacto %}
-<div class="col-lg-8 col-md-12 col-12">
-{% else %}
-<div class="col-lg-12 col-md-12 col-12">
-{% endif %}
-<!-- AQUÍ VA EL CONTENIDO DINÁMICO -->
-{% block content %}
-{% endblock %}
-<!-- AQUÍ VA EL CONTENIDO DINÁMICO -->
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========================= CONTENIDO PRINCIPAL ========================= -->
+    <!-- =========================                     ========================= -->
+    <!-- AQUÍ VA EL CONTENIDO DINÁMICO -->
+    {% block content %}
 
-
-</div>
-{% if not contacto%}
-<aside class="col-lg-4 col-md-12 col-12">
-<div class=sidebar>
-
-<div class="widget search-widget">
-<h5 class=widget-title>Buscador</h5>
-<form id="BusquedaForm" action="{% url 'buscar_noticias' %}" method="POST">
-{% csrf_token %}
-<input type=text name="cadena" placeholder="Buscar ...">
-<button type=submit><i class="lni lni-search-alt"></i></button>
-</form>
-</div>
-
-<div class="widget popular-feeds">
-<h5 class=widget-title>Noticias más leidas</h5>
-<div class=popular-feed-loop>
-
-    {% for noticia in mas_leidas %}
-        <div class=single-popular-feed>
-        <div class=feed-desc>
-        <h6 class=post-title><a href="/blog/{{noticia.slug}}">{{ noticia.titulo }}</a></h6>
-        <span class=time><i class="lni lni-calendar"></i> {{ noticia.fecha_creacion }}</span>
+    {% endblock %}
+    <!-- AQUÍ VA EL CONTENIDO DINÁMICO -->
+    {% if not contacto %}
+    <div class="col-xl-4 col-lg-5">
+        <div class="sidebar-wrapper">
+            <div class="sidebar-box search-form-box mb-30">
+                <form action="{% url 'buscar_noticias' %}" method="POST" class="search-form">
+                    {% csrf_token %}
+                    <input type="text" placeholder='{% trans "Buscar..." %}'>
+                    <button type="submit"><i class="lni lni-search-alt"></i></button>
+                </form>
+            </div>
+            <div class="sidebar-box recent-blog-box mb-30">
+                <h4>{% trans "Noticias más leidas" %}</h4>
+                <div class="recent-blog-items">
+                    {% for noticia in mas_leidas %}
+                    <div class="recent-blog mb-30">
+                        <div class="recent-blog-img">
+                            <img src="{{noticia.imagen.url}}" alt="#">
+                        </div>
+                        <div class="recent-blog-content">
+                            <h5><a href="/blog/{{noticia.slug}}">{{ noticia.titulo }}</a></h5>
+                            <span class="date">{{ noticia.fecha_creacion | date:"d \ F \ Y" }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="sidebar-box catagories-box mb-30">
+                <h4>{% trans "Categorias" %}</h4>
+                <ul>
+                    {% for categoria in categorias %}
+                    <li>
+                        <a href="/categoria/{{categoria.slug}}/">
+                            <span>{{ categoria.nombre}}</span>
+                        </a>
+                    </li>
+                    </a>
+                    {% endfor %}
+                   
+                  
+                </ul>
+            </div>
+            <!-- CONSIDERAR PARA UN FUTURO -->
+            <!-- <div class="sidebar-box tags-box mb-30">
+                <h4>Popular Tags</h4>
+                <ul>
+                    <li><a href="javascript:void(0)">Web Design</a></li>
+                    <li><a href="javascript:void(0)">Wireframing</a></li>
+                    <li><a href="javascript:void(0)">Graphic Design</a></li>
+                    <li><a href="javascript:void(0)">Branding</a></li>
+                    <li><a href="javascript:void(0)">Analysis</a></li>
+                    <li><a href="javascript:void(0)">Web Development</a></li>
+                </ul>
+            </div> -->
+            <!-- CONSIDERAR PARA UN FUTURO -->
+       
+            <div class="sidebar-box mb-30">
+                <h4>{% trans "Redes sociales" %}</h4>
+               
+                <div class="footer-social-links">
+                    <ul class="d-flex justify-content-start">
+                        <li><a href="https://twitter.com/jmsanzprieto"><i class="lni lni-twitter-filled"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/josemanuelsanzprieto/"><i class="lni lni-linkedin-original"></i></a></li>
+                        <li><a href="https://github.com/jmsanzprieto/"><i class="lni lni-github-original"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
     </div>
-    {% endfor %}
-</div>
-</div>
-
-
-<div class="widget popular-tag-widget">
-<h5 class=widget-title>Categorias</h5>
-<div class=tags>
-{% for categoria in categorias %}
-<a href="/categoria/{{categoria.slug}}/"> {{ categoria.nombre}}</a>
-{% endfor %}
-</div>
-</div>
-
-</div>
-</aside>
-{% endif %}
-</div>
-</div>
-</section>
+    </div>
+    </section>
 
 
 
+    <!-- =========================                     ========================= -->
+    <!-- ========================= CONTENIDO PRINCIPAL ========================= -->
+    <!-- ========================= footer start ========================= -->
+    <footer class="footer pt-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="footer-widget mb-60 wow fadeInLeft">
+                        <a href="{% url 'home' %}" class="logo mb-30"><h4>José Manuel Sanz</h4></a>
+                        {% blocktrans trimmed %}
+                        <p>Un blog fruto del aprendizaje de Python / Django.</p>
+                        <p class=copyright-text><span>José Manuel Sanz © 2023 </span> <br>Basado en el tema Space de <a href="https://graygrids.com/" rel=nofollow target=_blank>GrayGrids</a>
+                        </p>
+                        {% endblocktrans %}
+                    </div>
+                </div>
+                <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6">
+                    <div class="footer-widget mb-60 wow fadeInUp">
+                        <h4>Quick Link</h4>
+                        <ul class="footer-links">
+                            <li>
+                                <a href="javascript:void(0)">Home</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">About Us</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Service</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6">
+                    <div class="footer-widget mb-60 wow fadeInUp">
+                        <h4>Service</h4>
+                        <ul class="footer-links">
+                            <li>
+                                <a href="javascript:void(0)">Marketing</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Branding</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Web Design</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Graphics Design</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6">
+                    <div class="footer-widget mb-60 wow fadeInRight" ".8s">
+                        <h4>Contact</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <p>+00983467367234</p>
+                            </li>
+                            <li>
+                                <p>yourmail@gmail.com</p>
+                            </li>
+                            <li>
+                                <p>United State Of America
+                                    *12 Street House</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </footer>
+    <!-- ========================= footer end ========================= -->
 
-<footer class="footer section">
-
-<div class=footer-top>
-<div class=container>
-<div class=inner-content>
-<div class=row>
-<div class="col-lg-4 col-md-6 col-12">
-
-<div class="single-footer f-about">
-<div class=logo>
-<a href="{% url 'home' %}">
-    <h4>José Manuel Sanz</h4>
-</a>
-</div>
-<p>Un blog fruto del aprendizaje de Python / Django.</p>
-<p class=copyright-text><span>José Manuel Sanz © 2023 </span>Basado en el tema Blink de <a href="https://graygrids.com/" rel=nofollow target=_blank>GrayGrids</a>
-</p>
-</div>
-
-</div>
-<!-- <div class="col-lg-2 col-md-6 col-12">
-
-<div class="single-footer f-link">
-<h3>Solutions</h3>
-<ul>
-<li><a href="javascript:void(0)">Marketing</a></li>
-<li><a href="javascript:void(0)">Analytics</a></li>
-<li><a href="javascript:void(0)">Commerce</a></li>
-<li><a href="javascript:void(0)">Insights</a></li>
-</ul>
-</div>
-
-</div> -->
-<div class="col-lg-2 col-md-6 col-12">
-
-<div class="single-footer f-link">
-<h3>Redes sociales</h3>
-<ul class="social-icons">
-    <li>
-      <a href="https://twitter.com/jmsanzprieto">
-        <span class="fa-stack fa-lg">
-          <i class="fas fa-circle fa-stack-2x"></i>
-          <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-        </span>
-      </a>
-    </li>
-    <li>
-      <a href="https://www.linkedin.com/in/josemanuelsanzprieto/">
-        <span class="fa-stack fa-lg">
-          <i class="fas fa-circle fa-stack-2x"></i>
-          <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-        </span>
-      </a>
-    </li>
-    <li>
-      <a href="https://github.com/jmsanzprieto/">
-        <span class="fa-stack fa-lg">
-          <i class="fas fa-circle fa-stack-2x"></i>
-          <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-        </span>
-      </a>
-    </li>
-  </ul>
-  
-</div>
-
-</div>
-<!-- <div class="col-lg-4 col-md-6 col-12">
-
-<div class="single-footer newsletter">
-<h3>Subscribe</h3>
-<p>Subscribe to our newsletter for the latest updates</p>
-<form action="#" method=get target=_blank class=newsletter-form>
-<input name=EMAIL placeholder="Email address" required=required type=email>
-<div class=button>
-<button class=sub-btn><i class="lni lni-envelope"></i>
-</button>
-</div>
-</form>
-</div>
-
-</div> -->
-</div>
-</div>
-</div>
-</div>
-
-</footer>
-
-
-<!-- ========================= scroll-top ========================= -->
+    <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top">
-        <i class="lni lni-chevron-up"></i>
+        <i class="lni lni-arrow-up"></i>
     </a>
 
     <!-- ========================= JS here ========================= -->
-    <script src="{% static 'core/assets/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'core/assets/js/wow.min.js' %}"></script>
-    <script src="{% static 'core/assets/js/tiny-slider.js' %}"></script>
-    <script src="{% static 'core/assets/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'core/assets/js/bootstrap.bundle-5.0.0-beta1.min.js' %}"></script>
+    <script src="{% static 'core/assets/js/contact-form.js' %}"></script>
     <script src="{% static 'core/assets/js/count-up.min.js' %}"></script>
+    <script src="{% static 'core/assets/js/tiny-slider.js' %}"></script>
+    <script src="{% static 'core/assets/js/isotope.min.js' %}"></script>
+    <script src="{% static 'core/assets/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'core/assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'core/assets/js/imagesloaded.min.js' %}"></script>
     <script src="{% static 'core/assets/js/main.js' %}"></script>
-    <script>
-        //========= testimonial 
-        tns({
-            container: '.testimonial-slider',
-            items: 3,
-            slideBy: 'page',
-            autoplay: false,
-            mouseDrag: true,
-            gutter: 0,
-            nav: true,
-            controls: false,
-            controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                540: {
-                    items: 1,
-                },
-                768: {
-                    items: 1,
-                },
-                992: {
-                    items: 1,
-                },
-                1170: {
-                    items: 2,
-                }
-            }
-        });
-
-        //====== counter up 
-        var cu = new counterUp({
-            start: 0,
-            duration: 2000,
-            intvalues: true,
-            interval: 100,
-            append: " ",
-        });
-        cu.start();
-    </script>
 </body>
 
 </html>

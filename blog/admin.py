@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from parler.admin import TranslatableAdmin
 #Importamos el modelo
 from .models import Blog
 from .models import Comentario
@@ -48,5 +48,6 @@ admin.site.register(Autor, AutorAdmin)  # Registra la clase Autor en el panel de
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'slug')  # Campos a mostrar en la lista de objetos de Autor
     verbose_name_plural = 'Categorias'
+
 
 admin.site.register(Categoria, CategoriaAdmin)  # Registra la clase Autor en el panel de administración y le aplica la personalización de AutorAdmin

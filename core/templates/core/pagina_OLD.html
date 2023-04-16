@@ -1,0 +1,11 @@
+    <!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
+    {% extends 'core/base.html' %}
+    <!-- CARGAMOS LOS DATOS DE LA NOTICIA CONCRETA -->
+    {% for pagina in paginas %}
+    <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
+    {% block content %}
+    <div class="row align-items-center">
+        <p>{{pagina.contenido|linebreaks}}</p>
+    </div>
+    {% endblock %}
+    {% endfor %}

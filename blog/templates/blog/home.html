@@ -3,46 +3,47 @@
     <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
     {% block content %}
 
-    <div class=row>
-    <!-- CARGAMOS LAS NOTICIAS -->
-   {% for noticias in noticias %}
-    <!-- areea para cada post-->
-    <div class="col-lg-6 col-md-6 col-12">
-    
-    <div class=single-blog-grid>
-    <div class=blog-img>
-    <a href="/blog/{{noticias.slug}}">
-        <script data-pagespeed-no-defer>window['pagespeed'] = window['pagespeed'] || {};var pagespeed = window['pagespeed'];pagespeed.switchToHighResAndMaybeBeacon = function(elem) {setTimeout(function(){elem.onload = null;var srcset = elem.getAttribute('data-pagespeed-high-res-srcset');if (srcset) {elem.srcset = srcset;}elem.src = elem.getAttribute('data-pagespeed-high-res-src');if (pagespeed.CriticalImages) {elem.onload = pagespeed.CriticalImages.checkImageForCriticality(elem);}}, 0);};</script><img data-pagespeed-high-res-src="{{ noticias.imagen.url }}" alt="#" data-pagespeed-url-hash=1334232145 src="{{ noticias.imagen.url }}" onload="pagespeed.switchToHighResAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.switchToHighResAndMaybeBeacon(this);">
-
-   
-    </a>
-    </div>
-    <div class=blog-content>
-    <a class=category >{{noticias.subtitulo}}</a>
-    <h4>
-    <a href="/blog/{{noticias.slug}}">{{noticias.titulo}}</a>
-    </h4>
-    <p>{{ noticias.contenido|slice:":150"|safe }}</p>
-    <a href="/blog/{{noticias.slug}}" class=more-btn>Leer más <i class="lni lni-arrow-right"></i></a>
-    </div>
-    </div>
-    
-    </div>
-
-    <!-- area para cada post-->
-   {% endfor %}
-    <!-- CARGAMOS LAS NOTICIAS -->
-    </div>
-    
-    <!-- <div class="pagination left">
-    <ul class=pagination-list>
-    <li><a href="javascript:void(0)">Prev</a></li>
-    <li class=active><a href="javascript:void(0)">2</a></li>
-    <li><a href="javascript:void(0)">3</a></li>
-    <li><a href="javascript:void(0)">4</a></li>
-    <li><a href="javascript:void(0)">Next</a></li>
-    </ul>
-    </div> -->
+    <section class="blog-section pt-130">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="left-side-wrapper">
+                        <div class="row">
+                            <!-- =========================   CONTENIDO DE CADA POST    ========================= -->
+                            <!-- CARGAMOS LAS NOTICIAS -->
+                            {% for noticias in noticias %}
+                            <div class="col-md-6 col-lg-12 col-xl-6">
+                                <div class="single-blog mb-40 wow fadeInUp">
+                                    <div class="blog-img">
+                                        <a href="/blog/{{noticias.slug}}"><img
+                                                src="{{ noticias.imagen.url }}" alt="#"></a>
+                                        <span class="date-meta">15 June, 2025</span>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h4><a href="/blog/{{noticias.slug}}">{{noticias.titulo}}</a></h4>
+                                        <p>{{ noticias.contenido|slice:":150"|safe }}</p>
+                                        <a href="/blog/{{noticias.slug}}" class="read-more-btn">Leer más <i
+                                                class="lni lni-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- =========================  CONTENIDO DE CADA POST     ========================= -->
+                           
+                        </div>
+                        <!-- LA PAGINACIÓN LA DEJO PARA MÁS ADELANTE -->
+                        <!-- <div class="pagination">
+                            <ul class="d-flex justify-content-center align-items-center">
+                                <li><a href="javascript:void(0)"><i class="lni lni-arrow-left"></i></a></li>
+                                <li><a href="javascript:void(0)">1</a></li>
+                                <li><a href="javascript:void(0)" class="active">2</a></li>
+                                <li><a href="javascript:void(0)">3</a></li>
+                                <li><a href="javascript:void(0)"><i class="lni lni-arrow-right"></i></a></li>
+                            </ul>
+                        </div> -->
+                        <!-- LA PAGINACIÓN LA DEJO PARA MÁS ADELANTE -->
+                    </div>
+                </div>
     
    
     {% endblock %}

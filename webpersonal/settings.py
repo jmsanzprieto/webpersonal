@@ -1,3 +1,4 @@
+
 """
 Django settings for webpersonal project.
 
@@ -9,8 +10,11 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,21 +41,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     # Si queremos usar la configuración extendida de apps.py, hemos de modificar blog y cambiarlo por blog.apps.BlogConfig
     'blog.apps.BlogConfig',
     'contacto',
-     'ckeditor',
+    'ckeditor',
+    'core',
+    'parler',
+   
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', ## Tiene que estar en este odren
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+
 ]
 
 ROOT_URLCONF = 'webpersonal.urls'
@@ -70,6 +80,8 @@ TEMPLATES = [
                 'core.views.paginas_context',
                 'core.views.noticias_context',
                 'core.views.categorias_context',
+                'django.template.context_processors.i18n', # Indicamos que vamos a usar la internazionalizacion
+              
             ],
         },
     },
@@ -111,14 +123,42 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'es-ES'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
 
-USE_I18N = True
+USE_I18N = True # multi idioma
+
+USE_L10N=True # multi localización
 
 USE_TZ = True
 
+# Indicamos los idiomas que se van a gestionar
+LANGUAGES = [
+    ('es', _('Español')),
+    ('en', _('English')),
+]
+
+# Definimos la ruta de los archivos de idiomas
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+
+# CONFIGURAMOS PARLER PARA EL ESPAÑOL POR DEFECTO
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'es', },
+        {'code': 'en', },
+    ),
+    'default': {
+        'fallback': 'es',
+        'hide_untranslated': False,
+    }
+}
+
+PARLER_DEFAULT_LANGUAGE = 'es'
+PARLER_SHOW_EXCLUDED_LANGUAGE_TABS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

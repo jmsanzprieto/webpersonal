@@ -1,53 +1,87 @@
 <!-- INDICAMOS QUE VAMOS A EXTENDER LA PLANTILLA BASE -->
 {% extends 'core/base.html' %}
+<!-- POSIBILITAMOS EL MULTI IDIOMA  , hay que cargar esto en todos los templates -->
+{% load i18n %}
 
 <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
 {% block content %}
-{%  if 'OK' in request.GET %}
+{% if 'OK' in request.GET %}
 <div class="text-center mb-3">
-    <div class="alert alert-success"><span class="text-success">  El mensaje se ha enviado correctamente</span></div>
+    <div class="alert alert-success"><span class="text-success"> El mensaje se ha enviado correctamente</span></div>
 </div>
 {% endif %}
-{%  if 'KO' in request.GET %}
-    <div class="text-center mb-3">
-        <div class="alert alert-danger"><span class="text-danger">  Se ha producido un error enviando el mensaje</span></div>
-    </div>
+{% if 'KO' in request.GET %}
+<div class="text-center mb-3">
+    <div class="alert alert-danger"><span class="text-danger"> Se ha producido un error enviando el mensaje</span></div>
+</div>
 {% endif %}
-<div class="contact-us section">
-<div class=container>
-<div class=row>
-<div class="col-lg-6 col-12">
-<div class=contact-form>
-<form id="contactForm" action="" method="POST">
-    {% csrf_token %} 
-    <div class="form-group">
-        {{contacto.nombre}}
+<section class="contact-section pt-130">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="contact-item-wrapper">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-xl-12">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="lni lni-envelop"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <h4>{% trans "Contacto" %}</h4>
+                                    <p>contacto@josemanuelsanz.es</p>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="contact-form-wrapper">
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-8 mx-auto">
+                            <div class="section-title text-center mb-50">
+                                <span class="wow fadeInDown" >{% trans "Deja tu mensaje" %}</span>
+                               
+                                <p class="wow fadeInUp">{% trans "Te contestaré tan pronto como pueda" %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="assets/php/mail.php" class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="name" id="name" placeholder="Name" required="">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" name="email" id="email" placeholder="Email" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="phone" id="phone" placeholder="Phone" required="">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="subject" id="email" placeholder="Subject" required="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <textarea name="message" id="message" placeholder="Type Message" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="button text-center">
+                                    <button type="submit" class="theme-btn">Send Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        {{contacto.email}}
+<p><br></p>
 
-    </div>
-    <div class="form-group">
-        {{contacto.mensaje}}
-
-    </div>
-    <br />
-<div class=button>
-    <input type="submit" class="btn btn-primary text-uppercase"  value="Enviar mensaje">
-</div>
-</form>
-</div>
-</div>
-<div class="col-lg-6 col-12">
-<div class=contact-widget-wrapper>
-<div class=main-title>
-<h2>Deja tu mensaje y te contestaré tan pronto como pueda</h2>
-<p>Este sitio web es solamente a efectos de aprendizaje, con lo cual es probable que alguna función, incluido este formulario de contacto, en alguna ocasión esté deshabilitada.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-{% endblock%}
+    {% endblock%}
