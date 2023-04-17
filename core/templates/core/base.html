@@ -61,30 +61,38 @@
                         <a class="navbar-brand" href="{% url 'home' %}">
                             <h4>José Manuel Sanz</h4>
                         </a>
-
+                        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse sub-menu-bar collapse" id="navbarSupportedContent" style="">
                         <ul id="nav" class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                            <li class="nav-item"><a href="{% url 'home' %}">{% trans "Inicio" %}</a></li>
-                            </li>
-                            <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
-                            {% for pagina in paginas %}
-                            <li class="nav-item"><a href="/pagina/{{pagina.slug}}/">{{ pagina.titulo }}</a></li>
-                            {% endfor %}
-                            <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
-                            <li class="nav-item"><a href="{% url 'contacto' %}">{% trans "Contacto" %}</a></li>
+                        <li class="nav-item">
+                        <a href="{% url 'home' %}">{% trans "Inicio" %}</a>
+                        </li>
+                         <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->
+                         {% for pagina in paginas %}
+                         <li class="nav-item"><a href="/pagina/{{pagina.slug}}/">{{ pagina.titulo }}</a></li>
+                         {% endfor %}
+                        <!-- LISTADO DE PAGINAS ESTÁTICAS/DINAMICAS SERVIDAS DESDE LA BASE DE DATOS -->    
+                        <li class="nav-item">
+                        <a  href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
+                        </li>
                         </ul>
-
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
-
+                        
                         <select id="language-selector" onchange="location.href=this.value;">
                             {% for lang_code, lang_name in LANGUAGES %}
                                 <option value="{% url 'change_language' lang_code %}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>{{ lang_name }}</option>
                             {% endfor %}
                         </select>
+                        </div> 
+                        
+                        </nav>
                 </div>
 
-                </nav>
             </div>
         </div> <!-- row -->
         </div> <!-- container -->
@@ -157,7 +165,7 @@
             <div class="sidebar-box search-form-box mb-30">
                 <form action="{% url 'buscar_noticias' %}" method="POST" class="search-form">
                     {% csrf_token %}
-                    <input type="text" placeholder='{% trans "Buscar..." %}'>
+                    <input type="text" name="cadena" placeholder='{% trans "Buscar..." %}'>
                     <button type="submit"><i class="lni lni-search-alt"></i></button>
                 </form>
             </div>
