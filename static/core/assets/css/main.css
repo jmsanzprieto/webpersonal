@@ -3176,3 +3176,16 @@ p {
 .pb-225 {
   padding-bottom: 225px;
 }
+
+.post-comments .comments-list li .comment-desc .desc-top .reply-link i {
+  margin-right: 5px;
+}
+
+.lni {
+  display: inline-block;
+  font: 1em/1 'LineIcons';
+  speak: none;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -67,28 +67,84 @@
                         </div>
                     </div> -->
                     <!-- LOS POST RELACIONADOS SERÁN 2 DE LA MISMA CATEGORIA QUE EL PRINCIPAL -->
+                    <div class="comment-form-wrapper ms-0">
+                        <!-- COMENTARIOS -->
 
+                        <a name="comentario"></a>
+                        <div class=post-comments>
+                            <h3 class=comment-title>
+                                <span>
+                                {% if noticia.comentarios.count == 0 %}
+                                    No hay comentarios todavía.
+                                {% elif noticia.comentarios.count == 1 %}
+                                    Hay un comentario en esta noticia.
+                                {% else %}
+                                    Hay {{ noticia.comentarios.count }} comentarios en esta noticia.
+                                {% endif %}
+                                </span></h3>
+                                <div class="mensajes" style="padding: 20px;">
+                                    {% if 'OK' in request.GET %}
+                                    <div class="text-center mb-3">
+                                        <div id="mensaje-ok" class="alert alert-success"><span class="text-success"> El comentario se ha guardado
+                                                correctamente</span>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if 'KO' in request.GET %}
+                                    <div class="text-center mb-3">
+                                        <div id="mensaje-ko" class="alert alert-danger"><span class="text-danger"> Se ha producido un error guardando el
+                                                comentario</span></div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            <ul class=comments-list>
+                                {% for comentario in comentarios_aprobados %}
+                                <div class="comment-form-wrapper ms-0" style="margin-top: 10px;background-color: azure;">
+                                <li>
+                                    <div class=comment-img>
+                                        <!-- <img data-pagespeed-lazy-src="assets/images/blog/xcomment1.jpg.pagespeed.ic.nTUzOhBqKr.webp" alt=img data-pagespeed-url-hash=3568828081 src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"> -->
+                                    </div>
+                                    <div class=comment-desc>
+                                        <div class=desc-top>
+                                            <h6>{{ comentario.nombre }}</h6>
+                                            <span class=date>{{ comentario.fecha_creacion }}</span>
+                                            <!-- <a href="javascript:void(0)" class=reply-link><i class="lni lni-reply"></i>Responder</a> -->
+                                        </div>
+                                        <div style="margin-top: 20px; padding-left: 30px;">
+                                            <p></p>
+                                            <p>{{ comentario.contenido|safe }}</p>
+                                        </div>
+                                        
+                                    </div>
+                                </li>
+                                </div>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
                     <div class="comment-form-wrapper ms-0">
                         <h2 class="mb-40">{% trans "Comenta esta entrada" %}</h2>
-                        <form action="#" class="comment-form">
+                          <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST" class="comment-form">
+                                <input type="hidden" name="pagina" value="{{ noticia.slug }}">
+                                {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <input type="text" name="name" id="name" placeholder="Name" required="">
+                                    <input type="text" name="nombre" id="name" placeholder="{% trans 'Nombre' %}" required="">
                                 </div>
                                 <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <input type="email" name="email" id="email" placeholder="Email" required="">
+                                    <input type="email" name="email" id="email" placeholder="{% trans 'Email' %}" required="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <textarea name="message" id="message" placeholder="Type Comment"
-                                        rows="5"></textarea>
+                                    <textarea name="mensaje" id="message" placeholder="{% trans 'Comentario' %}"  rows="5"></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="button text-center">
-                                        <button type="submit" class="theme-btn">Submit Now</button>
+                                        <button type="submit" class="theme-btn">{% trans 'Enviar ahora' %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -97,84 +153,8 @@
                 </div>
             </div>
 
-            <!-- COMENTARIOS -->
-
-            <!-- <a name="comentario"></a>
-            <div class=post-comments>
-                <h3 class=comment-title><span> {{ noticia.comentarios.count }} comentarios en esta noticia</span></h3>
-
-                <ul class=comments-list>
-                    {% for comentario in comentarios_aprobados %}
-                    <li>
-                        <!-- <div class=comment-img>
-    <img data-pagespeed-lazy-src="assets/images/blog/xcomment1.jpg.pagespeed.ic.nTUzOhBqKr.webp" alt=img data-pagespeed-url-hash=3568828081 src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
-    </div> -->
-                        <!-- <div class=comment-desc>
-                            <div class=desc-top>
-                                <h6>{{ comentario.nombre }}</h6>
-                                <span class=date>{{ comentario.fecha_creacion }}</span>
-                                <a href="javascript:void(0)" class=reply-link><i class="lni lni-reply"></i>Responder</a>
-                            </div>
-                            <p>{{ comentario.contenido }}</p>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="mensajes" style="padding: 20px;">
-                {% if 'OK' in request.GET %}
-                <div class="text-center mb-3">
-                    <div class="alert alert-success"><span class="text-success"> El comentario se ha guardado
-                            correctamente</span>
-                    </div>
-                </div>
-                {% endif %}
-                {% if 'KO' in request.GET %}
-                <div class="text-center mb-3">
-                    <div class="alert alert-danger"><span class="text-danger"> Se ha producido un error guardando el
-                            comentario</span></div>
-                </div>
-                {% endif %}
-            </div>
-            <div class=comment-form>
-                <h3 class=comment-reply-title>Deja tu comentario</h3>
-                <form id="ComentarioForm" action="{% url 'procesar_comentario' %}" method="POST">
-                    <input type="hidden" name="pagina" value="{{ noticia.slug }}">
-                    {% csrf_token %}
-                    <div class=row>
-                        <div class=col-12>
-                            <div class="form-box form-group">
-                                <label>Comentario</label>
-                                <textarea name="mensaje" class="form-control form-control-custom"
-                                    placeholder="Escribe tu comentario"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="form-box form-group">
-                                <label>Nombre</label>
-                                <input type=text name="nombre" class="form-control form-control-custom"
-                                    placeholder="Tu nombre" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="form-box form-group">
-                                <label>Correo electrónico</label>
-                                <input type=email name="email" class="form-control form-control-custom"
-                                    placeholder="example@gmail.com" />
-                            </div>
-                        </div>
-                        <div class=col-12>
-                            <div class="form-box form-group checkbox-container">
-                                <input type="checkbox" name="acepto" id="acepto" required>
-                                <label for="acepto"><br>He leído y acepto los términos y condiciones</label>
-                            </div>
-                            <div class=button>
-                                <button type=submit class=btn>Enviar comentario</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div> --> 
+            
+            
             {% endblock %}
             {% endfor %}
             {{ form.media }}
