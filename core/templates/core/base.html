@@ -28,13 +28,18 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{% static 'core/assets/css/bootstrap-5.0.0-beta1.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'core/assets/css/LineIcons.2.0.css' %}">
     <link rel="stylesheet" href="{% static 'core/assets/css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'core/assets/css/tiny-slider.css' %}">
     <link rel="stylesheet" href="{% static 'core/assets/css/glightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/assets/css/bootstrap-5.0.0-beta1.min.css' %}">
     <link rel="stylesheet" href="{% static 'core/assets/css/main.css' %}">
-     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <style>
         .titular_en_breadcrumb {
             color: white;
@@ -66,7 +71,7 @@
                         <span class="toggler-icon"></span>
                         <span class="toggler-icon"></span>
                         </button>
-                        <div class="navbar-collapse sub-menu-bar collapse" id="navbarSupportedContent" style="">
+                        <div class="navbar-collapse sub-menu-bar collapse" id="navbarSupportedContent" >
                         <ul id="nav" class="navbar-nav ms-auto">
                         <li class="nav-item">
                         <a href="{% url 'home' %}">{% trans "Inicio" %}</a>
@@ -79,6 +84,15 @@
                         <li class="nav-item">
                         <a  href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
                         </li>
+                        {% if not request.user.is_authenticated %}
+                        <li class="nav-item">
+                        <a href="#" data-toggle="modal" data-target="#formlogin">{% trans "Acceso" %}</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                        <a href="{% url 'logout' %}">{% trans "Salir" %}</a>
+                        </li>
+                        {% endif %}
                         </ul>
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
@@ -131,6 +145,8 @@
                         <h3 class="titular_en_breadcrumb">{% trans "Resultados de la busqueda" %}</h3>
                         {% elif contacto %}
                         <h3 class="titular_en_breadcrumb">{% trans "Formulario de contacto" %}</h3>
+                        {% elif login %}
+                        <h3 class="titular_en_breadcrumb">{% trans "Inicio de sesión" %}</h3>
                         {% else %}
                         <h2 class="titular_en_breadcrumb">{% trans "Inicio" %}</h2>
                         {% endif %}
@@ -335,4 +351,47 @@
       document.getElementById("mensaje-ko").style.display = "none";
     }, 2000); // cambiar 2000 por el número de milisegundos que desees
   </script>
-  
+
+<!-- MODAL PARA EL LOGIN -->
+<!-- Modal -->
+<div class="modal fade" id="formlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{% trans "Acceso de usuarios" %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <div class="comment-form-wrapper ms-0" style="background-color: antiquewhite;">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+            <form action="{% url 'login' %}" method="POST" class="comment-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+                        <input type="text" name="username" id="id_username" placeholder="{% trans 'Nombre' %}"
+                            required="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+                        <input type="password" name="password" id="id_password"
+                            placeholder="{% trans 'Password' %}" required="">
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="{% trans 'Entrar' %}">
+                
+            </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

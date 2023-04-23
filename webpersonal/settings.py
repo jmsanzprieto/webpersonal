@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,20 +144,9 @@ LOCALE_PATHS = (
 )
 
 
-# CONFIGURAMOS PARLER PARA EL ESPAÑOL POR DEFECTO
-PARLER_LANGUAGES = {
-    None: (
-        {'code': 'es', },
-        {'code': 'en', },
-    ),
-    'default': {
-        'fallback': 'es',
-        'hide_untranslated': False,
-    }
-}
-
-PARLER_DEFAULT_LANGUAGE = 'es'
-PARLER_SHOW_EXCLUDED_LANGUAGE_TABS = True
+# Rutas para el login
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'contacto'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

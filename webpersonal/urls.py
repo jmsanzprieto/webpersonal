@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
 from core import views as core_views
 from blog import views as blog_views
 from core.views import pagina
@@ -28,10 +29,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from blog.views import Categoria
 from django.views import i18n
-
-
-
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,16 +47,12 @@ urlpatterns = [
     path('procesar-comentario/', blog_views.agregar_comentario, name='procesar_comentario'),
     path('buscar-noticia/', blog_views.buscar_noticias, name='buscar_noticias'),
     path('change_language/<str:language>/', views.change_language, name='change_language'),
-
-
+    # Path del Auth
+    path('accounts/', include('django.contrib.auth.urls')),
+    # Cambiamos el path para que el login esté en el modal del home
+    path('login/', auth_views.LoginView.as_view(template_name='base.html'), name='login'),
 
 ]
-
-
-# urlpatterns +=i18n_patterns(
-#     path('set-language/<str:language>/', set_language, name='set_language'),
-   
-# )
 
 
 
