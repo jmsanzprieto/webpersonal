@@ -145,8 +145,8 @@ LOCALE_PATHS = (
 
 
 # Rutas para el login
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'contacto'
+LOGIN_REDIRECT_URL = 'perfil'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -166,10 +166,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Ajustes para el envio de correos, modificar lo que corresponda
-EMAIL_HOST = 'xxxxxxxxxxxxxxxxxxxxxxx'
-EMAIL_HOST_USER = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-EMAIL_HOST_PASSWORD = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-EMAIL_PORT = 'xxxxxxxxxxxxxxxxxxxxxxx'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'b57a7be82a13cd'
+EMAIL_HOST_PASSWORD = '17c48d959d4b25'
+EMAIL_PORT = '2525'
 
 
 # Configuracion para CKEDITOR

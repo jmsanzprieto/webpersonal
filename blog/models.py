@@ -3,6 +3,8 @@ from django.db.models import Q
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
+
 
 
 # Create your models here.
@@ -86,8 +88,9 @@ class Comentario(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     aprobado = models.BooleanField(default=False)
     blog = models.ManyToManyField(Blog, related_name='comentarios')
-   
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatar', null=True, blank=True)
+    
     
     class Meta:
         ordering = ["fecha_creacion"]

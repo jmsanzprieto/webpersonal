@@ -101,9 +101,18 @@
                                 {% for comentario in comentarios_aprobados %}
                                 <div class="comment-form-wrapper ms-0" style="margin-top: 10px;background-color: azure;">
                                 <li>
+
                                     <div class=comment-img>
-                                        <!-- <img data-pagespeed-lazy-src="assets/images/blog/xcomment1.jpg.pagespeed.ic.nTUzOhBqKr.webp" alt=img data-pagespeed-url-hash=3568828081 src="/pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"> -->
+                                    {% if comentario.avatar %}
+                                        <img alt="#" class="img-thumbnail" style="width: 50px;"src="/media/{{ comentario.avatar }}">
+                                    {% else %}
+                                        <img alt="#" class="img-thumbnail" style="width: 50px;"src="/media/perfil/img_avatar_default.jpg">
+                                    {% endif %}
                                     </div>
+
+                                    <!-- <div class=comment-img>
+                                        <img alt="#" class="img-thumbnail" style="width: 50px;" src="{{comentario.perfil.avatar}}">
+                                    </div> -->
                                     <div class=comment-desc>
                                         <div class=desc-top>
                                             <h6>{{ comentario.nombre }}</h6>
@@ -130,10 +139,10 @@
                                 {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <input type="text" name="nombre" id="name" placeholder="{% trans 'Nombre' %}" required="">
+                                    <input type="text" name="nombre" id="name" placeholder="{% trans 'Nombre' %}" {% if request.user.is_authenticated %} value="{{ request.user.first_name }} {{ request.user.last_name }}" {% endif %} required="">
                                 </div>
                                 <div class="col-md-6 col-lg-12 col-xl-6">
-                                    <input type="email" name="email" id="email" placeholder="{% trans 'Email' %}" required="">
+                                    <input type="email" name="email" id="email" placeholder="{% trans 'Email' %}" value="{{ request.user.email }}"required="">
                                 </div>
                             </div>
                             <div class="row">

@@ -48,6 +48,8 @@
             color: white;
             text-decoration: underline;
         }
+
+        .form-control {margin-bottom: 20px !important};
         
     </style>
 </head>
@@ -84,15 +86,28 @@
                         <li class="nav-item">
                         <a  href="{% url 'contacto' %}">{% trans "Contacto" %}</a>
                         </li>
-                        {% if not request.user.is_authenticated %}
                         <li class="nav-item">
-                        <a href="#" data-toggle="modal" data-target="#formlogin">{% trans "Acceso" %}</a>
+                            <a class="page-scroll dd-menu active collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Usuario</a>
+                            <ul class="sub-menu collapse" id="submenu-1-1">
+                            {% if not request.user.is_authenticated %}
+                            <li class="nav-item">
+                            <!-- <a href="#" data-toggle="modal" data-target="#formlogin">{% trans "Acceso" %}</a> -->
+                            <a href="{% url 'login' %}" >{% trans "Acceso" %}</a>
+                            <li class="nav-item active"><a href="{% url 'registro' %}">Registro</a></li>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a href="{% url 'perfil' %}">{% trans "Perfil del usuario" %}</a>
+                                </li>
+                            <li class="nav-item">
+                            <a href="{% url 'logout' %}">{% trans "Salir" %}</a>
+                            </li>
+                            {% endif %}
+                           
+                            </ul>
+                            
                         </li>
-                        {% else %}
-                        <li class="nav-item">
-                        <a href="{% url 'logout' %}">{% trans "Salir" %}</a>
-                        </li>
-                        {% endif %}
+                       
                         </ul>
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
@@ -347,8 +362,8 @@
 </html>
 <script>
     setTimeout(function() {
-      document.getElementById("mensaje-ok").style.display = "none";
-      document.getElementById("mensaje-ko").style.display = "none";
+      $(".mensaje-ok").hide('slow');
+      $(".mensaje-ko").hide('slow');
     }, 2000); // cambiar 2000 por el número de milisegundos que desees
   </script>
 

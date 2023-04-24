@@ -2,6 +2,9 @@ from django.shortcuts import get_object_or_404,render,redirect
 from django.views.generic.detail import DetailView
 #from django.http import HttpResponseRedirect
 from django.urls import reverse
+from registration.models import Perfil
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Importamos el modelo para acceder a la bd
 from .models import Blog,Comentario,Categoria
@@ -83,7 +86,27 @@ def agregar_comentario(request):
         # Agregar el objeto Blog al campo de ManyToManyField del modelo Comentario
         comentario.save() # Guardar el comentario para obtener un ID
         comentario.blog.add(blog) # Agregar el objeto Blog
-        comentario.save() # Guardar el comentario con la relación ManyToManyField actualizada
+
+        # Obtener el perfil del usuario que creó el comentario si existe
+        perfil = None
+        try:
+            perfil = Perfil.objects.get(user__email=comentario.email)
+        except Perfil.DoesNotExist:
+            pass
+
+        # Asignar el avatar correspondiente al comentario
+        if perfil:
+            comentario.avatar = perfil.avatar
+        else:
+            # Asignar una imagen predeterminada
+            default_avatar = '/media/perfil/img_avatar_default.jpg'
+            comentario.avatar = default_avatar
+        
+        # Enviar un correo al superusuario con la información del comentario
+        subject = 'Nuevo comentario en el blog'
+        message = f'Nombre: {comentario.nombre}\nEmail: {comentario.email}\nContenido: {comentario.contenido}'
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
+
 
         return redirect('/blog/'+nombre_pagina+"?OK#comentario")
     

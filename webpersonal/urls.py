@@ -48,9 +48,10 @@ urlpatterns = [
     path('buscar-noticia/', blog_views.buscar_noticias, name='buscar_noticias'),
     path('change_language/<str:language>/', views.change_language, name='change_language'),
     # Path del Auth
-    path('accounts/', include('django.contrib.auth.urls')),
-    # Cambiamos el path para que el login esté en el modal del home
-    path('login/', auth_views.LoginView.as_view(template_name='base.html'), name='login'),
+    path('usuarios/', include('django.contrib.auth.urls')),
+    # Creamos nuestras propias urls 
+    path('usuarios/', include('registration.urls')),
+   
 
 ]
 
