@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-22 08:06+0200\n"
+"POT-Creation-Date: 2023-04-24 16:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,36 +18,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: blog/models.py:48
+#: .\blog\models.py:50
 msgid "categorias"
 msgstr "categories"
 
-#: blog/templates/blog/noticia.html:72
+#: .\blog\templates\blog\noticia.html:136
 msgid "Comenta esta entrada"
 msgstr "Leave a comment"
 
-#: blog/templates/blog/noticia.html:76
+#: .\blog\templates\blog\noticia.html:142 .\core\templates\core\base.html:394
+#: .\registration\templates\registration\login.html:31
 msgid "Nombre"
 msgstr "Name"
 
-#: blog/templates/blog/noticia.html:79
+#: .\blog\templates\blog\noticia.html:145
 msgid "Email"
 msgstr "Email"
 
-#: blog/templates/blog/noticia.html:84
+#: .\blog\templates\blog\noticia.html:150
 msgid "Comentario"
 msgstr "Comment"
 
-#: blog/templates/blog/noticia.html:91
+#: .\blog\templates\blog\noticia.html:156
 msgid "Enviar ahora"
 msgstr "Summit now"
 
-#: contacto/templates/contacto/contacto.html:30
-#: core/templates/core/base.html:80
+#: .\contacto\templates\contacto\contacto.html:30
+#: .\core\templates\core\base.html:87
 msgid "Contacto"
 msgstr "Contact"
 
-#: contacto/templates/contacto/contacto.html:36
+#: .\contacto\templates\contacto\contacto.html:36
 msgid ""
 "<p>Este sitio web es solamente a efectos de aprendizaje, con lo cual es "
 "probable que alguna función, incluido este formulario de contacto, en alguna "
@@ -60,51 +61,67 @@ msgstr ""
 "example: on the production site (and as long as you don't have your own "
 "domain), sending emails through forms are limited. </p>"
 
-#: contacto/templates/contacto/contacto.html:53
+#: .\contacto\templates\contacto\contacto.html:53
 msgid "Deja tu mensaje"
 msgstr "Leave your message"
 
-#: contacto/templates/contacto/contacto.html:55
+#: .\contacto\templates\contacto\contacto.html:55
 msgid "Te contestaré tan pronto como pueda"
 msgstr "I will answer you as soon as I can"
 
-#: core/templates/core/base.html:72 core/templates/core/base.html:135
+#: .\core\templates\core\base.html:79 .\core\templates\core\base.html:166
 msgid "Inicio"
 msgstr "Home"
 
-#: core/templates/core/base.html:114
+#: .\core\templates\core\base.html:94 .\core\templates\core\base.html:95
+msgid "Acceso"
+msgstr "Login"
+
+#: .\core\templates\core\base.html:100
+msgid "Perfil del usuario"
+msgstr "User profile"
+
+#: .\core\templates\core\base.html:103
+msgid "Salir"
+msgstr "Logout"
+
+#: .\core\templates\core\base.html:143
 msgid "Autor"
 msgstr "Author"
 
-#: core/templates/core/base.html:116 core/templates/core/base.html:189
+#: .\core\templates\core\base.html:145 .\core\templates\core\base.html:220
 msgid "Categorias"
 msgstr "Categories"
 
-#: core/templates/core/base.html:129
+#: .\core\templates\core\base.html:158
 msgid "Noticias de la categoria:"
 msgstr "Category news:"
 
-#: core/templates/core/base.html:131
+#: .\core\templates\core\base.html:160
 msgid "Resultados de la busqueda"
 msgstr "Search results"
 
-#: core/templates/core/base.html:133
+#: .\core\templates\core\base.html:162
 msgid "Formulario de contacto"
 msgstr "Form contact"
 
-#: core/templates/core/base.html:168
+#: .\core\templates\core\base.html:164
+msgid "Inicio de sesión"
+msgstr ""
+
+#: .\core\templates\core\base.html:199
 msgid "Buscar..."
 msgstr "Search..."
 
-#: core/templates/core/base.html:173
+#: .\core\templates\core\base.html:204
 msgid "Noticias más leidas"
-msgstr ""
-
-#: core/templates/core/base.html:218
-msgid "Redes sociales"
 msgstr "Most read news"
 
-#: core/templates/core/base.html:246
+#: .\core\templates\core\base.html:249
+msgid "Redes sociales"
+msgstr "Social Network"
+
+#: .\core\templates\core\base.html:277
 msgid ""
 "<p>Un blog fruto del aprendizaje de Python / Django.</p> <p class=copyright-"
 "text><span>José Manuel Sanz © 2023 </span> <br>Basado en el tema Space de <a "
@@ -115,14 +132,40 @@ msgstr ""
 "<a href=\"https://graygrids.com/\" rel=nofollow target=_blank>GrayGrids</a> "
 "</p>"
 
-#: core/views.py:40
+#: .\core\templates\core\base.html:376
+msgid "Acceso de usuarios"
+msgstr "Login"
+
+#: .\core\templates\core\base.html:401
+#: .\registration\templates\registration\login.html:38
+msgid "Password"
+msgstr "Password"
+
+#: .\core\templates\core\base.html:404
+#: .\registration\templates\registration\login.html:41
+msgid "Entrar"
+msgstr "Login"
+
+#: .\core\views.py:40
 msgid "Idioma cambiado con éxito."
 msgstr ""
 
-#: webpersonal/settings.py:136
+#: .\registration\templates\registration\login.html:19
+msgid "El usuario se ha registrado correctamente."
+msgstr ""
+
+#: .\registration\templates\registration\login.html:24
+msgid "Usuario o contraseña incorrectos, prueba de nuevo."
+msgstr "The user has successfully registered"
+
+#: .\registration\templates\registration\registro.html:20
+msgid "Crear usuario"
+msgstr "Create user"
+
+#: .\webpersonal\settings.py:137
 msgid "Español"
 msgstr ""
 
-#: webpersonal/settings.py:137
+#: .\webpersonal\settings.py:138
 msgid "English"
 msgstr ""
