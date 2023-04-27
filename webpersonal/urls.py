@@ -51,6 +51,11 @@ urlpatterns = [
     path('usuarios/', include('django.contrib.auth.urls')),
     # Creamos nuestras propias urls 
     path('usuarios/', include('registration.urls')),
+    path('secretos/', include('secretos.urls')),
+
+    
+
+
    
 
 ]

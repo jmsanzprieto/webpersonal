@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'contacto',
     'ckeditor',
     'core',
+    'secretos',
 
 ]
 

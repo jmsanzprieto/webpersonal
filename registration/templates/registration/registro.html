@@ -2,7 +2,11 @@
 {% extends 'core/base.html' %}
 <!-- POSIBILITAMOS EL MULTI IDIOMA  , hay que cargar esto en todos los templates -->
 {% load i18n %}
+<style>
+            p {
 
+}
+</style>
 <!-- INCLUIMOS EL CONTENIDO QUE VARIA DENTRO  DEL BLOCK CONTENT -->
 {% block content %}
 <style>.errorlist{color:red;} label{display:none}</style>
@@ -17,8 +21,17 @@
                             <form action="{% url 'registro' %}" method="POST" class="comment-form">
                                 {% csrf_token %}
                                 {{form.as_p}}
+                                <p style="display: inline-block; vertical-align: middle;">
+                                    <input type="checkbox" name="terms" id="terms">
+                                    <span>Acepto los términos y condiciones</span>
+                                  </p>
+
+
+                       
+                                  
                                 <input type="submit" class="btn btn-primary" value="{% trans 'Crear usuario' %}">
-                                
+                      
+                                  
                             </form>
                         </div>
                     </div>
